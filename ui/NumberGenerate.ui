@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>372</width>
+    <height>154</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>فرم ایجاد لیست شماره</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+background-color: rgb(9, 68, 3);
+border-radius: 15px;
+}
+
+
+QLabel {
+color:    rgb(255, 255, 0)  ;
+}
+
+QLineEdit{
+background-color: rgba(0, 0, 0, 0);
+color:rgb(4, 255, 0);
+    border-style: solid;
+    border-bottom-width: 1px;
+	border-bottom-color: rgb(255, 136, 0);
+   border-radius: 10px;
+
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">QToolTip {
+background-color: rgba(0, 0, 0, 0);
+    border: 1px solid darkkhaki;
+    border-radius: 5px;
+    opacity: 0.5;
+color:  rgb(0, 255, 0);
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="generate_num">
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>B Nazanin</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>اولین شماره مورد نظر خود را بدون 0 وارد کنید</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="placeholderText">
+           <string>9123456789</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+color:    rgb(255, 255, 0)  ;
+}</string>
+          </property>
+          <property name="text">
+           <string>اولین شماره :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="generate_count">
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>B Nazanin</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>تعداد مورد نظر خود برای ایجاد لیست شماره ها وارد کنید</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="placeholderText">
+           <string>10</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>تعداد ایجاد    :</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="btn_g_cancel">
+          <property name="font">
+           <font>
+            <family>B Nazanin</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>لغو عملیات</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton:hover:!pressed
+{
+  border: 2px solid rgb(255, 85, 0);
+background-color: rgb(255, 170, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton{
+background-color: rgb(205, 68, 102);
+color: rgb(255, 255, 127);
+border: 1px solid  #55ffff;;
+border-radius: 10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>لغو</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btn_g_ok">
+          <property name="font">
+           <font>
+            <family>B Nazanin</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>ایجاد لیست</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton:hover:!pressed
+{
+  border: 2px solid rgb(255, 85, 0);
+	background-color: rgb(129, 125, 255);
+	color: rgb(85, 255, 255);
+}
+QPushButton{
+background-color: rgb(0, 92, 67);
+color: rgb(255, 255, 127);
+border: 1px solid  #55ffff;;
+border-radius: 10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>تایید</string>
+          </property>
+          <property name="autoDefault">
+           <bool>true</bool>
+          </property>
+          <property name="default">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>generate_num</tabstop>
+  <tabstop>generate_count</tabstop>
+  <tabstop>btn_g_ok</tabstop>
+  <tabstop>btn_g_cancel</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

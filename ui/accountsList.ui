@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>308</width>
+    <height>392</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>فرم ایجاد لیست شماره</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel {
+color:    rgb(255, 255, 0)  ;
+}
+
+QToolTip {
+background-color: rgba(0, 0, 0, 0);
+    border: 1px solid darkkhaki;
+    border-radius: 5px;
+    opacity: 0.5;
+color:  rgb(0, 255, 0);
+}</string>
+  </property>
+  <widget class="QFrame" name="frame_import">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>296</width>
+     <height>378</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+	background-color: #2b2b2b;
+    border-style: solid;
+    border-width: 1px;
+border-color:#a9a9a9;
+   border-radius: 10px;
+   height: 25px;
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="3" column="0">
+     <widget class="QPushButton" name="btn_import_cancel">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>B Nazanin</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>لغو عملیات بارگزاری شماره</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton:hover:!pressed
+{
+  border: 2px solid rgb(255, 85, 0);
+background-color: rgb(255, 170, 127);
+	color: rgb(255, 0, 0);
+}
+QPushButton{
+background-color: rgb(205, 68, 102);
+color: rgb(255, 255, 127);
+border: 1px solid  #55ffff;;
+border-radius: 10px;
+}</string>
+      </property>
+      <property name="text">
+       <string>بستن</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QFrame" name="frame_manul">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+	background-color: #3b3b3b;
+    border-style: solid;
+    border-width: 1px;
+border-color:#a9a9a9;
+   border-radius: 15px;
+   height: 25px;
+}
+QTableView {
+	background-color: #c5c5c5;
+	    border-style: no;
+border-radius:5px;
+color: rgb(121, 2, 180) ; 
+}
+
+QLabel {
+  border-style: no;
+border-radius:5px;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
+       <item row="6" column="0">
+        <widget class="QTableView" name="accountsTable"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>لیست اکانت های ذخیره شده:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLineEdit" name="btn_addnewtel">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit{
+background-color:rgb(255, 255, 255);
+color:rgb(0, 0, 0);
+    border-style: solid;
+    border-bottom-width: 1px;
+	border-bottom-color: rgb(255, 136, 0);
+   border-radius: 7px;
+}</string>
+         </property>
+         <property name="placeholderText">
+          <string>شماره اکانت جدید</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="btn_importaccount">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>B Nazanin</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>انتخاب فایل برای بارگزاری</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:hover:!pressed
+{
+  border: 2px solid rgb(0, 209, 255);
+	background-color: rgb(129, 125, 255);
+	color: rgb(85, 255, 255);
+}
+QPushButton{
+background-color: rgb(0, 92, 67);
+color: rgb(255, 204, 0);
+border: 1px solid  rgb(234, 0, 255);;
+border-radius: 10px;
+}</string>
+         </property>
+         <property name="text">
+          <string>افزودن اکانت جدید</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>btn_import_cancel</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,11 @@
+__pycache__/
+venv/
+temp/
+temp1/
+*.jpg
+*.png
+*.ico
+*.qrc
+
+*.log
+*.data
