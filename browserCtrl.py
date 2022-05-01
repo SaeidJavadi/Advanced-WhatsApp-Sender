@@ -34,7 +34,11 @@ class Web(QThread):
         self.path = path
         self.remember = Remember
         self.isRunning = True
-
+        try:
+            if not os.path.exists('./temp/cache'):
+                os.makedirs('temp/cache/')
+        except:
+            os.makedirs('./temp/cache/')
         ## Save Session Section
         self.__platform = platform.system().lower()
         if self.__platform != 'windows' and self.__platform != 'linux':
