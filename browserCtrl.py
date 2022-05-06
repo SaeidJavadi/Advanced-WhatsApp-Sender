@@ -1,6 +1,10 @@
 from PyQt5.QtCore import pyqtSignal, QThread
 from selenium import webdriver
-import json, os, platform, time, random
+import json
+import os
+import platform
+import time
+import random
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -39,7 +43,7 @@ class Web(QThread):
                 os.makedirs('temp/cache/')
         except:
             os.makedirs('./temp/cache/')
-        ## Save Session Section
+        # Save Session Section
         self.__platform = platform.system().lower()
         if self.__platform != 'windows' and self.__platform != 'linux':
             raise OSError('Only Windows and Linux are supported for now.')
@@ -62,10 +66,12 @@ class Web(QThread):
         # options.add_argument(fr"--user-data-dir={userDataPath}")
         try:
             try:
-                self.__driver = webdriver.Chrome(chrome_options=options, service_args=["hide_console", ])
+                self.__driver = webdriver.Chrome(
+                    chrome_options=options, service_args=["hide_console", ])
             except Exception as e:
                 print("error remeber", e)
-                self.__driver = webdriver.Chrome(service_args=["hide_console", ])
+                self.__driver = webdriver.Chrome(
+                    service_args=["hide_console", ])
         except Exception as e:
             print("Chrome ->:", e)
             try:
@@ -76,7 +82,8 @@ class Web(QThread):
                 try:
                     self.__driver = webdriver.Firefox()
                 except:
-                    self.__driver = webdriver.Firefox(executable_path="geckodriver.exe")
+                    self.__driver = webdriver.Firefox(
+                        executable_path="geckodriver.exe")
             except Exception as e:
                 print("ّFirefox ->:", e)
         self.__driver.set_window_position(0, 0)
@@ -131,7 +138,8 @@ class Web(QThread):
                         except Exception as e:
                             print("error")
                     else:
-                        element = self.__driver.find_element_by_xpath('/html/head/a')
+                        element = self.__driver.find_element_by_xpath(
+                            '/html/head/a')
                         self.__driver.execute_script(f"arguments[0].setAttribute('href','https://wa.me/{num}');",
                                                      element)
                     user = self.__driver.find_element_by_xpath('/html/head/a')
@@ -211,8 +219,10 @@ class Web(QThread):
                         log = "ERROR !"
                         break
                 else:
-                    element = self.__driver.find_element_by_xpath('/html/head/a')
-                    self.__driver.execute_script(f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
+                    element = self.__driver.find_element_by_xpath(
+                        '/html/head/a')
+                    self.__driver.execute_script(
+                        f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
                 user = self.__driver.find_element_by_xpath('/html/head/a')
                 self.__driver.execute_script("arguments[0].click();", user)
                 time.sleep(2)
@@ -226,11 +236,11 @@ class Web(QThread):
                 else:
                     print("find", num)
                     textBox = self.__driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[2]/div/div[2]')
+                        '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
                     time.sleep(1)
                     textBox.send_keys(self.text)
                     self.__driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[3]/button/span').click()
+                        '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[2]/button').click()
                     time.sleep(1)
                     f += 1
                     self.lcdNumber_wa.emit(f)
@@ -294,8 +304,10 @@ class Web(QThread):
                         log = "ERROR !"
                         break
                 else:
-                    element = self.__driver.find_element_by_xpath('/html/head/a')
-                    self.__driver.execute_script(f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
+                    element = self.__driver.find_element_by_xpath(
+                        '/html/head/a')
+                    self.__driver.execute_script(
+                        f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
                 user = self.__driver.find_element_by_xpath('/html/head/a')
                 self.__driver.execute_script("arguments[0].click();", user)
                 time.sleep(2)
@@ -308,7 +320,8 @@ class Web(QThread):
                     self.nwa.emit(f"{num}")
                 else:
                     print("find", num)
-                    self.__driver.find_element_by_xpath('//span[@data-icon="clip"]').click()
+                    self.__driver.find_element_by_xpath(
+                        '//span[@data-icon="clip"]').click()
                     time.sleep(2)
                     attch = self.__driver.find_element_by_xpath(
                         '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
@@ -316,10 +329,11 @@ class Web(QThread):
                     time.sleep(2)
                     if self.text != '' or self.text != ' ':
                         caption = self.__driver.find_element_by_xpath(
-                            '/html/body/div[1]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]/div[2]')
+                            '/html/body/div[1]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div/div[1]/div[3]/div/div/div[2]/div[1]/div[2]')
                         caption.send_keys(self.text)
                         time.sleep(2)
-                    self.__driver.find_element_by_xpath('//span[@data-icon="send"]').click()
+                    self.__driver.find_element_by_xpath(
+                        '/html/body/div[1]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div/div[2]/div[2]/div/div/span').click()
                     f += 1
                     self.lcdNumber_wa.emit(f)
                     log = f"Number::{num} => Sent"
@@ -343,7 +357,8 @@ class Web(QThread):
                 if self.path == '':
                     cacheName = str(random.randint(1, 9999999))
                     self.path = cacheName
-                self.save_profile(self.get_active_session(), f"./temp/cache/{self.path}")
+                self.save_profile(self.get_active_session(),
+                                  f"./temp/cache/{self.path}")
                 print('File saved.')
             print("thread:", self.counter_start)
             self.EndWork.emit("-- Add Account completed --")
@@ -369,9 +384,9 @@ class Web(QThread):
             self.__driver.quit()
         except:
             pass
-        self.terminate()
+        # self.terminate()
 
-    ## work save Session web
+    # work save Session web
 
     def __init_browser(self):
         if self.__browser_choice == CHROME:
@@ -381,16 +396,20 @@ class Web(QThread):
                 self.__browser_user_dir = os.path.join(os.environ['USERPROFILE'],
                                                        'Appdata', 'Local', 'Google', 'Chrome', 'User Data')
             elif self.__platform == 'linux':
-                self.__browser_user_dir = os.path.join(os.environ['HOME'], '.config', 'google-chrome')
+                self.__browser_user_dir = os.path.join(
+                    os.environ['HOME'], '.config', 'google-chrome')
 
         elif self.__browser_choice == FIREFOX:
             self.__browser_options = webdriver.FirefoxOptions()
 
             if self.__platform == 'windows':
-                self.__browser_user_dir = os.path.join(os.environ['APPDATA'], 'Mozilla', 'Firefox', 'Profiles')
-                self.__browser_profile_list = os.listdir(self.__browser_user_dir)
+                self.__browser_user_dir = os.path.join(
+                    os.environ['APPDATA'], 'Mozilla', 'Firefox', 'Profiles')
+                self.__browser_profile_list = os.listdir(
+                    self.__browser_user_dir)
             elif self.__platform == 'linux':
-                self.__browser_user_dir = os.path.join(os.environ['HOME'], '.mozilla', 'firefox')
+                self.__browser_user_dir = os.path.join(
+                    os.environ['HOME'], '.mozilla', 'firefox')
 
         self.__browser_options.headless = True
         self.__refresh_profile_list()
@@ -436,14 +455,16 @@ class Web(QThread):
                                      'getAllObjects();')
         while not self.__driver.execute_script('return window.waScript.waSession != undefined;'):
             time.sleep(1)
-        wa_session_list = self.__driver.execute_script('return window.waScript.waSession;')
+        wa_session_list = self.__driver.execute_script(
+            'return window.waScript.waSession;')
         return wa_session_list
 
     def __get_profile_storage(self, profile_name=None):
         self.__refresh_profile_list()
 
         if profile_name is not None and profile_name not in self.__browser_profile_list:
-            raise ValueError('The specified profile_name was not found. Make sure the name is correct.')
+            raise ValueError(
+                'The specified profile_name was not found. Make sure the name is correct.')
 
         if profile_name is None:
             self.__start_visible_session()
@@ -478,11 +499,14 @@ class Web(QThread):
                             break
         else:
             if self.__browser_choice == CHROME:
-                options.add_argument('user-data-dir=%s' % os.path.join(self.__browser_user_dir, profile_name))
+                options.add_argument(
+                    'user-data-dir=%s' % os.path.join(self.__browser_user_dir, profile_name))
                 self.__driver = webdriver.Chrome(options=options)
             elif self.__browser_choice == FIREFOX:
-                fire_profile = webdriver.FirefoxProfile(os.path.join(self.__browser_user_dir, profile_name))
-                self.__driver = webdriver.Firefox(fire_profile, options=options)
+                fire_profile = webdriver.FirefoxProfile(
+                    os.path.join(self.__browser_user_dir, profile_name))
+                self.__driver = webdriver.Firefox(
+                    fire_profile, options=options)
 
             self.__driver.get(self.__URL)
 
@@ -492,14 +516,16 @@ class Web(QThread):
         self.__refresh_profile_list()
 
         if profile_name is not None and profile_name not in self.__browser_profile_list:
-            raise ValueError('The specified profile_name was not found. Make sure the name is correct.')
+            raise ValueError(
+                'The specified profile_name was not found. Make sure the name is correct.')
 
         self.__start_session(options, profile_name, wait_for_login)
 
     def __start_invisible_session(self, profile_name=None):
         self.__refresh_profile_list()
         if profile_name is not None and profile_name not in self.__browser_profile_list:
-            raise ValueError('The specified profile_name was not found. Make sure the name is correct.')
+            raise ValueError(
+                'The specified profile_name was not found. Make sure the name is correct.')
 
         self.__start_session(self.__browser_options, profile_name)
 
@@ -510,7 +536,8 @@ class Web(QThread):
             elif browser.lower() == 'firefox':
                 self.__browser_choice = FIREFOX
             else:
-                raise ValueError('The specified browser is invalid. Try to use "chrome" or "firefox" instead.')
+                raise ValueError(
+                    'The specified browser is invalid. Try to use "chrome" or "firefox" instead.')
         else:
             if browser == CHROME:
                 pass
@@ -536,7 +563,8 @@ class Web(QThread):
         elif type(use_profile) == list:
             use_profile_list.extend(self.__browser_profile_list)
         else:
-            raise ValueError("Invalid profile provided. Make sure you provided a list of profiles or a profile name.")
+            raise ValueError(
+                "Invalid profile provided. Make sure you provided a list of profiles or a profile name.")
 
         for profile in use_profile_list:
             profile_storage_dict[profile] = self.__get_profile_storage(profile)
@@ -554,7 +582,8 @@ class Web(QThread):
                 break
 
         if not verified_wa_profile_list:
-            raise ValueError('This is not a valid profile list. Make sure you only pass one session to this method.')
+            raise ValueError(
+                'This is not a valid profile list. Make sure you only pass one session to this method.')
 
         self.__start_visible_session(wait_for_login=False)
         self.__driver.execute_script('window.waScript = {};'
@@ -588,7 +617,8 @@ class Web(QThread):
                                      '};'
                                      '};'
                                      '}')
-        self.__driver.execute_script('window.waScript.setAllObjects(arguments[0]);', wa_profile_list)
+        self.__driver.execute_script(
+            'window.waScript.setAllObjects(arguments[0]);', wa_profile_list)
 
         while not self.__driver.execute_script(
                 'return (window.waScript.insertDone == window.waScript.jsonObj.length);'):
@@ -621,7 +651,8 @@ class Web(QThread):
                 raise ValueError('There might be multiple profiles stored in this file.'
                                  ' Make sure you only pass one WaSession file to this method.')
         else:
-            raise FileNotFoundError('Make sure you pass a valid WaSession file to this method.')
+            raise FileNotFoundError(
+                'Make sure you pass a valid WaSession file to this method.')
 
     def save_profile(self, wa_profile_list, file_path):
         file_path = os.path.normpath(file_path)
@@ -646,8 +677,10 @@ class Web(QThread):
                             verified_wa_profile_list = True
                             break
                 if verified_wa_profile_list:
-                    single_profile_name = os.path.basename(file_path) + '-' + profile_name
-                    self.save_profile(profile_storage, os.path.join(os.path.dirname(file_path), single_profile_name))
+                    single_profile_name = os.path.basename(
+                        file_path) + '-' + profile_name
+                    self.save_profile(profile_storage, os.path.join(
+                        os.path.dirname(file_path), single_profile_name))
                     saved_profiles += 1
             if saved_profiles > 0:
                 pass
@@ -655,4 +688,4 @@ class Web(QThread):
                 raise ValueError(
                     'Could not find any profiles in the list. Make sure to specified file path is correct.')
 
-    ## work save Session web
+    # work save Session web

@@ -952,6 +952,11 @@ class Main():
         self.formQImport.setWindowIcon(icon)
         self.fia.btn_import_cancel.clicked.connect(self.formQImport.close)
         self.fia.btn_importaccount.clicked.connect(self.addAccounts)
+        try:
+            if not os.path.exists('./temp/cache'):
+                os.makedirs('temp/cache/')
+        except:
+            os.makedirs('./temp/cache/')
         cacheList = os.listdir('temp/cache/')
         print(cacheList)
         self.modelAcc = TableModel(cacheList)
