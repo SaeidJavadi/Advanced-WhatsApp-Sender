@@ -1006,7 +1006,7 @@ class Main():
         loder = LoadingScreen(timeout=1)
         loder.exec_()
 
-    def ConnectionCheck(self, url='http://srv.pord.ir/ip/', timeout=5):
+    def ConnectionCheck(self, url='https://www.google.com/', timeout=5):
         try:
             req = requests.get(url, timeout=timeout)
             req.raise_for_status()
