@@ -295,7 +295,7 @@ class Main():
                                 pass
                             try:
                                 n = int(num)
-                                if len(str(num)) >= 10:
+                                if len(str(num)) >= 9:
                                     s98 = re.compile(fr"^{self.areaCode}", re.I)
                                     s0 = re.compile('^0', re.I)
                                     if s98.search(num):
@@ -320,7 +320,7 @@ class Main():
                             pass
                         try:
                             num = str(int(nume))
-                            if len(str(num)) >= 10:
+                            if len(str(num)) >= 9:
                                 s98 = re.compile(fr"^{self.areaCode}", re.I)
                                 s0 = re.compile('^0', re.I)
                                 if s98.search(num):
