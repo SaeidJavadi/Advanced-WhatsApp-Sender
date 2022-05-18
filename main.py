@@ -62,7 +62,7 @@ class Main():
         icon = QIcon()
         icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
         self.MainWindow.setWindowIcon(icon)
-
+        
         self.oldPos = self.MainWindow.pos()
         self.RememberLogin = True
         self.ui.sleepMin.setValidator(self.validator)
@@ -138,6 +138,9 @@ class Main():
                 self.ui.tab_img.setToolTip('Send image')
                 self.ui.areaCode.setToolTip('Your Country Area Code')
                 self.ui.lang.setToolTip('Set the program language')
+                self.fia.btn_importaccount.setToolTip('Select number to load')
+                self.fia.btn_import_cancel.setToolTip(
+                    'Cancelation of Number loading operations')
             except:
                 pass
             try:
@@ -962,6 +965,7 @@ class Main():
         self.modelAcc = TableModel(cacheList)
         self.fia.accountsTable.setModel(self.modelAcc)
         # self.rowCount = self.modelAcc.rowCount()
+        self.fia.btn_importaccount.setEnabled(False)
         self.languageSet()
         self.formQImport.show()
 

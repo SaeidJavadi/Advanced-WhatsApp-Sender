@@ -150,11 +150,11 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "فرم ایجاد لیست شماره"))
-        self.btn_import_cancel.setToolTip(_translate("Form", "لغو عملیات بارگزاری شماره"))
+        self.btn_import_cancel.setToolTip(_translate("Form", "لغو عملیات بارگذاری شماره"))
         self.btn_import_cancel.setText(_translate("Form", "بستن"))
         self.label_2.setText(_translate("Form", "لیست اکانت های ذخیره شده:"))
         self.btn_addnewtel.setPlaceholderText(_translate("Form", "شماره اکانت جدید"))
-        self.btn_importaccount.setToolTip(_translate("Form", "انتخاب فایل برای بارگزاری"))
+        self.btn_importaccount.setToolTip(_translate("Form", "انتخاب فایل برای بارگذاری"))
         self.btn_importaccount.setText(_translate("Form", "افزودن اکانت جدید"))
 
 
