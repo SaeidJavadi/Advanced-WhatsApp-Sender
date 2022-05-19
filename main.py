@@ -1,6 +1,5 @@
 import csv, os, dpi, sys, re, sqlite3, xlrd, requests, time
 from PyQt5.QtGui import QBrush, QTextCursor, QColor, QRegExpValidator, QIcon, QPixmap, QFontDatabase, QFont
-
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer, QPoint, QRegExp, QAbstractTableModel
 from PyQt5.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from pytz import timezone
