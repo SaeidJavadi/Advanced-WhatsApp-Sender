@@ -38,4 +38,5 @@ Program features include:
 `Python main.py`
 
 
-#### If you have problems running the program, you can [contact me](https://t.me/Hiding)
+#### If you have problems running the program, you can <a href="https://t.me/Hiding" target="_blank">Contact Me</a>
+
