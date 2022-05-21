@@ -30,3 +30,12 @@ Program features include:
 
 ![6](https://user-images.githubusercontent.com/53658372/162881707-6d8fbec5-4cda-4e18-9e6f-9b6eb22d8b90.gif)
 
+
+># **steps of program run**
+
+`pip install -r requirements.txt`
+
+`Python main.py`
+
+
+#### If you have problems running the program, you can [contact me](https://t.me/Hiding)
