@@ -42,5 +42,5 @@ You can use this program to automatically send a text message or image to a list
 
 <hr>
 <p align="center">
-<a href="https://py.pord.ir/donate/" target="_blank" align="center"><img src="https://py.pord.ir/donate/donate_button.png" border="0" width="150" height="40" alt="Donate button" title="Donate" /></a>
+<a href="https://py.pord.ir/donate/index.html" target="_blank" align="center"><img src="https://py.pord.ir/donate/donate_button.png" border="0" width="150" height="40" alt="Donate button" title="Donate" /></a>
 </p>
