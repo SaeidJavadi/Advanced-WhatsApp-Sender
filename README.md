@@ -1,4 +1,4 @@
-h### Advanced WhatsApp Sender And Analyzer
+### Advanced WhatsApp Sender And Analyzer
 
 You can use this program to automatically send a text message or image to a list of numbers
 
