@@ -38,6 +38,7 @@ You can use this program to automatically send a text message or image to a list
 
 `Python main.py`
 
+- Note: The <a href='https://chromedriver.chromium.org/downloads'>Chromedriver.exe</a> version must be the same as the your Chrome browser version.
 #### If you have problems running the program, you can <a href="https://t.me/Hiding" target="_blank">Contact Me</a>
 
 <hr>
