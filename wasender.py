@@ -357,7 +357,7 @@ class Ui_MainWindow(object):
         self.textMSG.setMinimumSize(QtCore.QSize(200, 0))
         self.textMSG.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
-        font.setFamily("B Nazanin")
+        font.setFamily("Arial")
         font.setPointSize(10)
         self.textMSG.setFont(font)
         self.textMSG.setLayoutDirection(QtCore.Qt.RightToLeft)
