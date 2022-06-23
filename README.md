@@ -32,13 +32,14 @@ You can use this program to automatically send a text message or image to a list
 
 > # **steps of program run**
 
-- Recommended to use Python version 3.9.10
+- Recommended to use <a href="https://www.python.org/downloads/release/python-3910/" target="_blank">Python version 3.9.10</a>
 
 `pip install -r requirements.txt`
 
 `Python main.py`
 
-- Note: The <a href='https://chromedriver.chromium.org/downloads'>Chromedriver.exe</a> version must be the same as the your Chrome browser version.
+- Note: The <a href='https://chromedriver.chromium.org/downloads' target="_blank">Chromedriver.exe</a> version must be the same as the your Chrome browser version.
+
 #### If you have problems running the program, you can <a href="https://t.me/Hiding" target="_blank">Contact Me</a>
 
 <hr>
