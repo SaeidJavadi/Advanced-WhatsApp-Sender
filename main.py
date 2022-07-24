@@ -319,6 +319,11 @@ class Main():
                             except:
                                 continue
             elif type == 'xlsx' or type == 'xls':
+                try:
+                    xlrd.xlsx.ensure_elementtree_imported(False, None)
+                    xlrd.xlsx.Element_has_iter = True
+                except:
+                    pass
                 wb = xlrd.open_workbook(path)
                 sheet = wb.sheet_by_index(0)
                 for c in range(sheet.ncols):
