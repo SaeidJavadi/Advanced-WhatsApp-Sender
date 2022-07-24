@@ -5,11 +5,14 @@ import os
 import platform
 import time
 import random
+import pyperclip
+import subprocess
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 CHROME = 1
 FIREFOX = 2
@@ -94,6 +97,17 @@ class Web(QThread):
             "if (document.querySelector('*[data-icon=chat]') !== null) { return true } else { return false }"
         )
         return status
+
+    def copyToClipboard(self, text):
+        try:  # Copy Text To clipboard
+            try:
+                subprocess.run("pbcopy", universal_newlines=True, input=text)
+            except Exception:
+                pyperclip.copy(text)
+        except Exception:
+            subprocess.run("pbcopy", universal_newlines=True, input=text)
+        finally:
+            pyperclip.copy(text)
 
     def ANALYZ(self):
         try:
@@ -236,11 +250,15 @@ class Web(QThread):
                 else:
                     print("find", num)
                     textBox = self.__driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
+                        '//div[@title="Type a message"]')
                     time.sleep(1)
-                    textBox.send_keys(self.text)
-                    self.__driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[2]/button').click()
+                    self.copyToClipboard(self.text)
+                    textBox.send_keys(Keys.CONTROL, 'v')
+                    time.sleep(1)
+                    try:
+                        textBox.send_keys(Keys.RETURN)
+                    except Exception:
+                        textBox.send_keys(Keys.ENTER)
                     time.sleep(1)
                     f += 1
                     self.lcdNumber_wa.emit(f)
@@ -327,13 +345,15 @@ class Web(QThread):
                         '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
                     attch.send_keys(self.path)
                     time.sleep(2)
+                    caption = self.__driver.find_element_by_xpath('//div[@data-testid="pluggable-input-body"]')
                     if self.text != '' or self.text != ' ':
-                        caption = self.__driver.find_element_by_xpath(
-                            '/html/body/div[1]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div/div[1]/div[3]/div/div/div[2]/div[1]/div[2]')
-                        caption.send_keys(self.text)
-                        time.sleep(2)
-                    self.__driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div/div[2]/div[2]/div/div/span').click()
+                        self.copyToClipboard(self.text)
+                        caption.send_keys(Keys.CONTROL, 'v')
+                        time.sleep(1)
+                    try:
+                        caption.send_keys(Keys.RETURN)
+                    except Exception:
+                        caption.send_keys(Keys.ENTER)
                     f += 1
                     self.lcdNumber_wa.emit(f)
                     log = f"Number::{num} => Sent"

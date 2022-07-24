@@ -822,7 +822,7 @@ class Ui_MainWindow(object):
         self.label_appName.setObjectName("label_appName")
         self.gridLayout_12.addWidget(self.label_appName, 0, 0, 1, 1)
         self.areaCode = QtWidgets.QLineEdit(self.frame_TabBar)
-        self.areaCode.setMinimumSize(QtCore.QSize(20, 0))
+        self.areaCode.setMinimumSize(QtCore.QSize(65, 0))
         self.areaCode.setMaximumSize(QtCore.QSize(30, 16777215))
         self.areaCode.setStyleSheet("QLineEdit{\n"
 "background-color: #eee1c5   ;\n"
@@ -927,7 +927,7 @@ class Ui_MainWindow(object):
         self.btn_min.setText(_translate("MainWindow", "-"))
         self.label_appName.setText(_translate("MainWindow", "Advanced WhatsApp"))
         self.areaCode.setToolTip(_translate("MainWindow", "پیش شماره کد کشور شما"))
-        self.areaCode.setText(_translate("MainWindow", "98"))
+        self.areaCode.setPlaceholderText(_translate("MainWindow", "Area Code"))
 import icons_rc
 
 

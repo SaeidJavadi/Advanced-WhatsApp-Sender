@@ -1,4 +1,12 @@
-import csv, os, dpi, sys, re, sqlite3, xlrd, requests, time
+import csv
+import os
+import dpi
+import sys
+import re
+import sqlite3
+import xlrd
+import requests
+import time
 from PyQt5.QtGui import QBrush, QTextCursor, QColor, QRegExpValidator, QIcon, QPixmap, QFontDatabase, QFont
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer, QPoint, QRegExp, QAbstractTableModel
 from PyQt5.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
@@ -17,7 +25,6 @@ class Main():
         app = QApplication(sys.argv)
         self.__LICENS__ = True
         self.__VERSION__ = '1.0'
-        self.areaCode = 98
         self.cv = 0
         self.Net = None
         self.User = None
@@ -61,8 +68,9 @@ class Main():
         icon = QIcon()
         icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
         self.MainWindow.setWindowIcon(icon)
-        
+
         self.oldPos = self.MainWindow.pos()
+        self.areaCode = self.ui.areaCode.text()
         self.RememberLogin = True
         self.ui.sleepMin.setValidator(self.validator)
         self.ui.sleepMin.setMaxLength(4)
@@ -384,10 +392,10 @@ class Main():
                 else:
                     msg = "ارور در بارگذاری شماره ها !\nمجدد تلاش کنید"
                 self.msgError(msg)
-                try:
-                    dbi.close()
-                except:
-                    pass
+            try:
+                dbi.close()
+            except:
+                pass
         else:
             print("Not Selected File!")
             pass
@@ -688,62 +696,69 @@ class Main():
             print(Net, self.User)
             if db.open():
                 if Net:
-                    if self.User:
-                        currentIndex = self.ui.start_tab.currentIndex()
-                        if currentIndex == 0:
-                            self.btnStatus()
-                            self.ui.LogBox.appendPlainText(f"-- Start analysis --")
-                            self.AnalyzNum()
-                        elif currentIndex == 1:
-                            print("message Tab")
-                            text = self.ui.textMSG.toPlainText()
-                            print(text)
-                            if text != '':
+                    if self.ui.areaCode.text() != '':
+                        if self.User:
+                            currentIndex = self.ui.start_tab.currentIndex()
+                            if currentIndex == 0:
                                 self.btnStatus()
-                                self.ui.LogBox.appendPlainText(f"-- Start Send Message --")
-                                self.sendMsg(text)
-                            else:
-                                if self.language == 'EN':
-                                    msg = "Enter the text of your message first"
+                                self.ui.LogBox.appendPlainText(f"-- Start analysis --")
+                                self.AnalyzNum()
+                            elif currentIndex == 1:
+                                print("message Tab")
+                                text = self.ui.textMSG.toPlainText()
+                                print(text)
+                                if text != '':
+                                    self.btnStatus()
+                                    self.ui.LogBox.appendPlainText(f"-- Start Send Message --")
+                                    self.sendMsg(text)
                                 else:
-                                    msg = "ابتدا متن پیام خود را وارد کنید"
-                                self.msgError(msg)
-                        elif currentIndex == 2:
-                            print('image tab')
-                            if self.p != '':
-                                caption = self.ui.caption.toPlainText()
-                                self.ui.LogBox.appendPlainText(f"-- Start Send Image --")
-                                self.sendImg(path=self.p, caption=caption)
-                                self.btnStatus()
-                            else:
-                                if self.language == 'EN':
-                                    msg = "First select your image to send"
+                                    if self.language == 'EN':
+                                        msg = "Enter the text of your message first"
+                                    else:
+                                        msg = "ابتدا متن پیام خود را وارد کنید"
+                                    self.msgError(msg)
+                            elif currentIndex == 2:
+                                print('image tab')
+                                if self.p != '':
+                                    caption = self.ui.caption.toPlainText()
+                                    self.ui.LogBox.appendPlainText(f"-- Start Send Image --")
+                                    self.sendImg(path=self.p, caption=caption)
+                                    self.btnStatus()
                                 else:
-                                    msg = "ابتدا تصویر خود را برای ارسال انتحاب کنید"
-                                self.msgError(msg)
-                        else:
-                            self.msgError()
-                        if not self.RememberLogin:
-                            lisT = os.listdir('temp')
-                            import shutil
-                            for f in lisT:
-                                try:
-                                    if f == 'temporary.data':
-                                        continue
-                                    os.remove(f"temp/{f}")
-                                except:
+                                    if self.language == 'EN':
+                                        msg = "First select your image to send"
+                                    else:
+                                        msg = "ابتدا تصویر خود را برای ارسال انتحاب کنید"
+                                    self.msgError(msg)
+                            else:
+                                self.msgError()
+                            if not self.RememberLogin:
+                                lisT = os.listdir('temp')
+                                import shutil
+                                for f in lisT:
                                     try:
-                                        os.rmdir(f"temp/{f}")
+                                        if f == 'temporary.data':
+                                            continue
+                                        os.remove(f"temp/{f}")
                                     except:
-                                        shutil.rmtree(f"temp/{f}")
+                                        try:
+                                            os.rmdir(f"temp/{f}")
+                                        except:
+                                            shutil.rmtree(f"temp/{f}")
+                                            continue
                                         continue
-                                    continue
+                        else:
+                            if self.language == 'EN':
+                                msg = "You do not have permission to use the app!"
+                            else:
+                                msg = "شما مجوز استفاده از برنامه را ندارید!"
+                            self.msgError(msg, colorf='#1b6900')
                     else:
                         if self.language == 'EN':
-                            msg = "You do not have permission to use the app!"
+                            msg = "Please enter your country code"
                         else:
-                            msg = "شما مجوز استفاده از برنامه را ندارید!"
-                        self.msgError(msg, colorf='#1b6900')
+                            msg = "لطفا کد کشور خود را وارد کنید"
+                        self.msgError(msg, colorf=' #ff3a0f ')
                 else:
                     if self.language == 'EN':
                         msg = "You are not connected to the Internet! \nMake sure you are connected to the Internet."
@@ -804,26 +819,33 @@ class Main():
             self.msgError(msg)
 
     def generate(self):
-        print("generate")
-        from generate import Ui_Form
-        self.frOM = Ui_Form()
-        self.generateForm = QDialog()
-        self.generateForm.setModal(True)
-        self.generateForm.setWindowFlags(self.generateForm.windowFlags() | Qt.FramelessWindowHint)
-        self.generateForm.setAttribute(Qt.WA_TranslucentBackground)
-        icon = QIcon()
-        icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
-        self.generateForm.setWindowIcon(icon)
-        self.frOM.setupUi(self.generateForm)
-        self.frOM.generate_num.setValidator(self.validator)
-        self.frOM.generate_num.setMaxLength(10)
-        self.frOM.generate_count.setValidator(self.validator)
-        self.frOM.generate_count.setMaxLength(5)
-        self.frOM.btn_g_ok.setFocus()
-        self.languageSet()
-        self.generateForm.show()
-        self.frOM.btn_g_cancel.clicked.connect(self.generateForm.close)
-        self.frOM.btn_g_ok.clicked.connect(self.importGenerate)
+        if self.ui.areaCode.text() != '':
+            print("generate")
+            from generate import Ui_Form
+            self.frOM = Ui_Form()
+            self.generateForm = QDialog()
+            self.generateForm.setModal(True)
+            self.generateForm.setWindowFlags(self.generateForm.windowFlags() | Qt.FramelessWindowHint)
+            self.generateForm.setAttribute(Qt.WA_TranslucentBackground)
+            icon = QIcon()
+            icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
+            self.generateForm.setWindowIcon(icon)
+            self.frOM.setupUi(self.generateForm)
+            self.frOM.generate_num.setValidator(self.validator)
+            self.frOM.generate_num.setMaxLength(10)
+            self.frOM.generate_count.setValidator(self.validator)
+            self.frOM.generate_count.setMaxLength(5)
+            self.frOM.btn_g_ok.setFocus()
+            self.languageSet()
+            self.generateForm.show()
+            self.frOM.btn_g_cancel.clicked.connect(self.generateForm.close)
+            self.frOM.btn_g_ok.clicked.connect(self.importGenerate)
+        else:
+            if self.language == 'EN':
+                msg = "Please enter your country code"
+            else:
+                msg = "لطفا کد کشور خود را وارد کنید"
+            self.msgError(msg, colorf=' #ff3a0f ')
 
     def importGenerate(self):
         firstNumber = self.frOM.generate_num.text()
@@ -865,27 +887,34 @@ class Main():
             self.msgError(msg)
 
     def importer(self):
-        print("import")
-        if self.cv == 0:
-            self.cv = 1
-            self.checkVERSION = NetWork(step=1, version=self.__VERSION__)
-            self.checkVERSION.start()
-            self.checkVERSION.cuurentVersion.connect(self.checkVer)
-        from importNumber import Ui_Form
-        self.fi = Ui_Form()
-        self.formQImport1 = QDialog()
-        self.formQImport1.setModal(True)
-        self.formQImport1.setWindowFlags(self.formQImport1.windowFlags() | Qt.FramelessWindowHint)
-        self.formQImport1.setAttribute(Qt.WA_TranslucentBackground)
-        self.fi.setupUi(self.formQImport1)
-        icon = QIcon()
-        icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
-        self.formQImport1.setWindowIcon(icon)
-        self.fi.btn_import_cancel.clicked.connect(self.formQImport1.close)
-        self.fi.btn_importFile.clicked.connect(self.btn_import)
-        self.fi.btn_importManual.clicked.connect(self.importManual)
-        self.languageSet()
-        self.formQImport1.show()
+        if self.ui.areaCode.text() != '':
+            print("import")
+            if self.cv == 0:
+                self.cv = 1
+                self.checkVERSION = NetWork(step=1, version=self.__VERSION__)
+                self.checkVERSION.start()
+                self.checkVERSION.cuurentVersion.connect(self.checkVer)
+            from importNumber import Ui_Form
+            self.fi = Ui_Form()
+            self.formQImport1 = QDialog()
+            self.formQImport1.setModal(True)
+            self.formQImport1.setWindowFlags(self.formQImport1.windowFlags() | Qt.FramelessWindowHint)
+            self.formQImport1.setAttribute(Qt.WA_TranslucentBackground)
+            self.fi.setupUi(self.formQImport1)
+            icon = QIcon()
+            icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
+            self.formQImport1.setWindowIcon(icon)
+            self.fi.btn_import_cancel.clicked.connect(self.formQImport1.close)
+            self.fi.btn_importFile.clicked.connect(self.btn_import)
+            self.fi.btn_importManual.clicked.connect(self.importManual)
+            self.languageSet()
+            self.formQImport1.show()
+        else:
+            if self.language == 'EN':
+                msg = "Please enter your country code"
+            else:
+                msg = "لطفا کد کشور خود را وارد کنید"
+            self.msgError(msg, colorf=' #ff3a0f ')
 
     def btn_import(self):
         options = QFileDialog.Options()
