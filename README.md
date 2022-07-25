@@ -1,10 +1,13 @@
 ### Advanced WhatsApp Sender And Analyzer
 
+- Analyzer: Find phone numbers that have WhatsApp account
+- Sender of text message and image message
+
 You can use this program to automatically send a text message or image to a list of Phone numbers
 
 # Program features include:
 
-- Reload PHone numbers via Excel files
+- Reload Phone numbers via Excel files
 
 ![1](https://user-images.githubusercontent.com/53658372/162801064-a4e493f5-c3ce-404a-8bb7-cd4e20d7dbd9.gif)
 
@@ -38,7 +41,7 @@ You can use this program to automatically send a text message or image to a list
 
 `Python main.py`
 
-- Note: The <a href='https://chromedriver.chromium.org/downloads' target="_blank">Chromedriver.exe</a> version must be the same as the your Chrome browser version.
+- Note: The <a href='https://chromedriver.chromium.org/downloads' target="_blank">Chromedriver.exe</a> version must be the same as the your Chrome browser version. (Eg both versions 103)
 
 #### If you have problems running the program, you can <a href="https://t.me/Hiding" target="_blank">Contact Me</a>
 
