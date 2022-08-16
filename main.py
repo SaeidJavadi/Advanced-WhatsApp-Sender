@@ -509,8 +509,6 @@ class Main():
             self.ui.btn_clear.setEnabled(True)
             try:
                 self.ui.LogBox.appendPlainText(msg)
-                loder = LoadingScreen(timeout=4)
-                loder.exec_()
             except Exception as e:
                 if hasattr(e, 'message'):
                     print(e.message)
@@ -686,8 +684,6 @@ class Main():
             pass
 
     def StarT(self):
-        loder = LoadingScreen()
-        loder.exec_()
         try:
             self.userChck()
         except:
@@ -859,8 +855,6 @@ class Main():
             RangeNum = 10
         if firstNumber != '':
             if not len(firstNumber) < 10:
-                loder = LoadingScreen()
-                loder.exec_()
                 path = f"temp\generate-{self.Time()}.csv"
                 print(firstNumber, path)
                 for i in range(int(RangeNum)):
@@ -932,8 +926,6 @@ class Main():
         except:
             pass
         self.ListLoader(num_path)
-        loder = LoadingScreen(timeout=1)
-        loder.exec_()
 
     def importManual(self):
         nums = self.fi.manualNumber.toPlainText()
@@ -1040,8 +1032,6 @@ class Main():
                 self.ui.imgName.setText(imgName)
         except:
             pass
-        loder = LoadingScreen(timeout=1)
-        loder.exec_()
 
     def ConnectionCheck(self, url='https://py.pord.ir/ip/', timeout=5):
         try:
@@ -1075,50 +1065,6 @@ class myQMainWindow(QMainWindow):
         delta = QPoint(event.globalPos() - self.oldPos)
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPos()
-
-
-class LoadingScreen(QDialog):
-    def __init__(self, timeout=1, parent=None):
-        try:
-            super().__init__(parent)
-            self.time_to_wait = timeout
-            self.setFixedSize(200, 200)
-            print("loder")
-            self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.CustomizeWindowHint | Qt.FramelessWindowHint)
-            self.setAttribute(Qt.WA_TranslucentBackground)
-            self.setModal(True)
-            self.setWindowTitle('Loading...')
-            icon = QIcon()
-            icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
-            self.setWindowIcon(icon)
-            from waitingspinnerwidget import QtWaitingSpinner
-            spinner = QtWaitingSpinner(self)
-            spinner.setRoundness(100.0)
-            spinner.setMinimumTrailOpacity(10.0)
-            spinner.setTrailFadePercentage(50.0)
-            spinner.setNumberOfLines(50)
-            spinner.setLineLength(50)
-            spinner.setLineWidth(5)
-            spinner.setInnerRadius(40)
-            spinner.setRevolutionsPerSecond(2)
-            spinner.setColor(QColor(85, 0, 255))
-            spinner.start()
-            self.timer = QTimer(self)
-            self.timer.setInterval(1000)
-            self.timer.timeout.connect(self.changeContent)
-            self.timer.start()
-        except:
-            print('Error Loder')
-
-    def changeContent(self):
-        self.time_to_wait -= 1
-        if self.time_to_wait <= 0:
-            print("close app")
-            self.close()
-
-    def closeEvent(self, event):
-        self.timer.stop()
-        event.accept()
 
 
 class LoadingText(QMessageBox):

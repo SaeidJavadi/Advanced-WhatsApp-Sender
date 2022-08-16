@@ -152,11 +152,10 @@ class Web(QThread):
                         except Exception as e:
                             print("error")
                     else:
-                        element = self.__driver.find_element_by_xpath(
-                            '/html/head/a')
+                        element = self.__driver.find_element(By.XPATH, '/html/head/a')
                         self.__driver.execute_script(f"arguments[0].setAttribute('href','https://wa.me/{num}');",
                                                      element)
-                    user = self.__driver.find_element_by_xpath('/html/head/a')
+                    user = self.__driver.find_element(By.XPATH, '/html/head/a')
                     self.__driver.execute_script("arguments[0].click();", user)
                     time.sleep(2)
                     sourceWeb = self.__driver.page_source
@@ -233,11 +232,10 @@ class Web(QThread):
                         log = "ERROR !"
                         break
                 else:
-                    element = self.__driver.find_element_by_xpath(
-                        '/html/head/a')
+                    element = self.__driver.find_element(By.XPATH, '/html/head/a')
                     self.__driver.execute_script(
                         f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
-                user = self.__driver.find_element_by_xpath('/html/head/a')
+                user = self.__driver.find_element(By.XPATH, '/html/head/a')
                 self.__driver.execute_script("arguments[0].click();", user)
                 time.sleep(2)
                 sourceWeb = self.__driver.page_source
@@ -249,8 +247,7 @@ class Web(QThread):
                     self.nwa.emit(f"{num}")
                 else:
                     print("find", num)
-                    textBox = self.__driver.find_element_by_xpath(
-                        '//div[@title="Type a message"]')
+                    textBox = self.__driver.find_element(By.XPATH, '//div[@title="Type a message"]')
                     time.sleep(1)
                     self.copyToClipboard(self.text)
                     textBox.send_keys(Keys.CONTROL, 'v')
@@ -322,11 +319,11 @@ class Web(QThread):
                         log = "ERROR !"
                         break
                 else:
-                    element = self.__driver.find_element_by_xpath(
-                        '/html/head/a')
+                    element = self.__driver.find_element(By.XPATH,
+                                                         '/html/head/a')
                     self.__driver.execute_script(
                         f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
-                user = self.__driver.find_element_by_xpath('/html/head/a')
+                user = self.__driver.find_element(By.XPATH, '/html/head/a')
                 self.__driver.execute_script("arguments[0].click();", user)
                 time.sleep(2)
                 sourceWeb = self.__driver.page_source
@@ -338,14 +335,14 @@ class Web(QThread):
                     self.nwa.emit(f"{num}")
                 else:
                     print("find", num)
-                    self.__driver.find_element_by_xpath(
-                        '//span[@data-icon="clip"]').click()
+                    self.__driver.find_element(By.XPATH,
+                                               '//span[@data-icon="clip"]').click()
                     time.sleep(2)
-                    attch = self.__driver.find_element_by_xpath(
-                        '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
+                    attch = self.__driver.find_element(By.XPATH,
+                                                       '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
                     attch.send_keys(self.path)
                     time.sleep(2)
-                    caption = self.__driver.find_element_by_xpath('//div[@data-testid="pluggable-input-body"]')
+                    caption = self.__driver.find_element(By.XPATH, '//div[@data-testid="pluggable-input-body"]')
                     if self.text != '' or self.text != ' ':
                         self.copyToClipboard(self.text)
                         caption.send_keys(Keys.CONTROL, 'v')
