@@ -89,8 +89,11 @@ class Web(QThread):
                         executable_path="geckodriver.exe")
             except Exception as e:
                 print("ّFirefox ->:", e)
-        self.__driver.set_window_position(0, 0)
-        self.__driver.set_window_size(670, 800)
+        try:
+            self.__driver.set_window_position(0, 0)
+            self.__driver.set_window_size(1080, 840)
+        except:
+            pass
 
     def is_logged_in(self):
         status = self.__driver.execute_script(
@@ -319,10 +322,8 @@ class Web(QThread):
                         log = "ERROR !"
                         break
                 else:
-                    element = self.__driver.find_element(By.XPATH,
-                                                         '/html/head/a')
-                    self.__driver.execute_script(
-                        f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
+                    element = self.__driver.find_element(By.XPATH, '/html/head/a')
+                    self.__driver.execute_script(f"arguments[0].setAttribute('href','https://wa.me/{num}');", element)
                 user = self.__driver.find_element(By.XPATH, '/html/head/a')
                 self.__driver.execute_script("arguments[0].click();", user)
                 time.sleep(2)
@@ -335,14 +336,14 @@ class Web(QThread):
                     self.nwa.emit(f"{num}")
                 else:
                     print("find", num)
-                    self.__driver.find_element(By.XPATH,
-                                               '//span[@data-icon="clip"]').click()
+                    self.__driver.find_element(By.XPATH, '//span[@data-icon="clip"]').click()
                     time.sleep(2)
                     attch = self.__driver.find_element(By.XPATH,
                                                        '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
                     attch.send_keys(self.path)
                     time.sleep(2)
-                    caption = self.__driver.find_element(By.XPATH, '//div[@data-testid="pluggable-input-body"]')
+                    caption = self.__driver.find_element(
+                        By.XPATH, '//div[@data-testid="media-caption-input-container"]')
                     if self.text != '' or self.text != ' ':
                         self.copyToClipboard(self.text)
                         caption.send_keys(Keys.CONTROL, 'v')
