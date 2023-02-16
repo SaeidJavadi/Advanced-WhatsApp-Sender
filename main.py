@@ -235,7 +235,7 @@ class Main():
 
     def showNumberList(self, commandSQL, focus=0):
         try:
-            QApplication.processEvents()
+            # QApplication.processEvents()
             global db
             db = QSqlDatabase.addDatabase("QSQLITE")
             db.setDatabaseName(self.dbPath)
@@ -272,7 +272,7 @@ class Main():
                     self.ui.tableview_numbers.scrollTo(self.index)
                     self.ui.tableview_numbers.selectRow(focus)
                     print("scroll")
-            QApplication.processEvents()
+            # QApplication.processEvents()
         except Exception as e:
             if hasattr(e, 'message'):
                 print(e.message)
