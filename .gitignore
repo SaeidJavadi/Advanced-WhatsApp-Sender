@@ -1,11 +1,12 @@
 __pycache__/
 venv/
 temp/
-temp1/
+build/
+dist/
 *.jpg
 *.png
 *.ico
 *.qrc
-
 *.log
 *.data
+*.spec

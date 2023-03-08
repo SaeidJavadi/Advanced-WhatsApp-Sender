@@ -1,0 +1,369 @@
+{
+  "languages": ["en", "fa"],
+  "translatables": {
+    "btn_import": {
+      "en": "Load",
+      "fa": "بارگذاری"
+    },
+    "btn_import_ttp": {
+      "en": "Loading numberes list",
+      "fa": "بارگذاری لیست شماره ها"
+    },
+    "btn_gnarate": {
+      "en": "Generator",
+      "fa": "ایجاد لیست"
+    },
+    "btn_gnarate_ttp": {
+      "en": "Created list from a number range",
+      "fa": "ایجاد لیست از یک رنج شماره"
+    },
+    "btn_export": {
+      "en": "Export",
+      "fa": "گزارش"
+    },
+    "btn_export_ttp": {
+      "en": "Get output from program results",
+      "fa": "گزارش گرفتن از نتایج برنامه"
+    },
+    "btn_clear": {
+      "en": "Clear",
+      "fa": "پاک کردن"
+    },
+    "btn_clear_ttp": {
+      "en": "Clear the list of numbers",
+      "fa": "پاک کردن لیست شماره ها"
+    },
+    "btn_acclist": {
+      "en": "Accounts List",
+      "fa": "لیست اکانت ها"
+    },
+    "btn_acclist_ttp": {
+      "en": "List of Stored Accounts",
+      "fa": "لیست اکانت های ذخیره شده"
+    },
+    "btn_start": {
+      "en": "Start",
+      "fa": "شروع"
+    },
+    "btn_start_ttp": {
+      "en": "Start the program",
+      "fa": "شروع فعالیت برنامه"
+    },
+    "btn_stop": {
+      "en": "Stop",
+      "fa": "توقف"
+    },
+    "btn_stop_ttp": {
+      "en": "Stop the program",
+      "fa": "توقف برنامه"
+    },
+    "whatsAppNumbers": {
+      "en": "Numbers List",
+      "fa": "لیست شماره ها"
+    },
+    "label_count_txt": {
+      "en": "Total",
+      "fa": "تعداد کل"
+    },
+    "label_count_txt_3": {
+      "en": "Reviewed",
+      "fa": "بررسی شده"
+    },
+    "label_count_txt_4": {
+      "en": "Successful",
+      "fa": "عملیات موفق"
+    },
+    "label_count_txt_5": {
+      "en": "Unsuccessful",
+      "fa": "عملیات ناموفق"
+    },
+    "textBrowser": {
+      "en": "You can use the number check feature to check your list of numbers to identify numbers that have WhatsApp accounts",
+      "fa": "می توانید از ویژگی بررسی شماره برای بررسی لیست شماره های خود برای شناسایی شماره هایی که دارای حساب های WhatsApp هستند استفاده کنید"
+    },
+    "start_tab_a": {
+      "en": "Check",
+      "fa": "بررسی"
+    },
+    "start_tab_m": {
+      "en": "Text Message",
+      "fa": "پیام متنی"
+    },
+    "start_tab_i": {
+      "en": "Image",
+      "fa": "تصویر"
+    },
+    "frame_LCD_label": {
+      "en": "Instant app review statistics",
+      "fa": "آمار لحظه ای بررسی برنامه"
+    },
+    "frame_LCD": {
+      "en": "Instant app  statistics",
+      "fa": "آمار لحظه ای بررسی برنامه"
+    },
+    "LogBox": {
+      "en": "Program activity reviewreport",
+      "fa": "گزارش فعالیت برنامه"
+    },
+    "frame_msg": {
+      "en": "List of numbers that are checked in the program",
+      "fa": "لیست شماره هایی که در برنامه بررسی می شوند"
+    },
+    "tab_Analyz_ttp": {
+      "en": "Number list check",
+      "fa": "بررسی لیست شماره ها"
+    },
+    "btn_close": {
+      "en": "Close the app",
+      "fa": "بستن برنامه"
+    },
+    "btn_min": {
+      "en": "Minimize",
+      "fa": "به حداقل رساندن"
+    },
+    "btn_maxmin": {
+      "en": "Application window mode",
+      "fa": "حالت پنجره برنامه"
+    },
+    "label": {
+      "en": "The text of the message",
+      "fa": "متن پیام"
+    },
+    "textMSG": {
+      "en": "The text of your message to send",
+      "fa": "متن پیام شما برای ارسال"
+    },
+    "label_2": {
+      "en": "Interrupt time of each post between",
+      "fa": "زمان وقفه بین هر ارسال"
+    },
+    "label_3": {
+      "en": "and",
+      "fa": "و"
+    },
+    "sleepMax": {
+      "en": "Most downtime",
+      "fa": "بیشترین زمان وقفه"
+    },
+    "sleepMin": {
+      "en": "Shortest downtime",
+      "fa": "کمترین زمان وقفه"
+    },
+    "label_11": {
+      "en": "Interrupt time of each post between",
+      "fa": "زمان وقفه بین هر ارسال"
+    },
+    "label_10": {
+      "en": "and",
+      "fa": "و"
+    },
+    "label_caption": {
+      "en": "Enter your caption if needed",
+      "fa": "درصورت نیاز کپشن خود را وارد کنید"
+    },
+    "caption_ttp": {
+      "en": "Caption of your desired image",
+      "fa": "عنوان تصویر مورد نظر شما"
+    },
+    "btn_img": {
+      "en": "Select Image",
+      "fa": "انتخاب تصویر"
+    },
+    "btn_img_ttp": {
+      "en": "Select an image to send",
+      "fa": "انتخاب تصویر برای ارسال"
+    },
+    "tab_msg": {
+      "en": "Send text message",
+      "fa": "ارسال پیام متنی"
+    },
+    "tab_img": {
+      "en": "Send image",
+      "fa": "ارسال تصویر"
+    },
+    "areaCode": {
+      "en": "If your listing does not include your country code prefix\n you can enter your country code here to add to all of your listing numbers when loading",
+      "fa": "اگر لیست شما پیشوند کد کشور شما را شامل نمی شود\nمی توانید کد کشور خود را در اینجا وارد کنید تا هنگام بارگذاری به همه شماره های لیست شما اضافه شود"
+    },
+    "langs": {
+      "en": "Set the program language",
+      "fa": "تنظیم زبان برنامه"
+    },
+    "fia_btn_addnewtel_phdr": {
+      "en": "New Account Number",
+      "fa": "شماره اکانت جدید"
+    },
+    "fia_btn_importaccount": {
+      "en": "Add new account",
+      "fa": "حساب جدید را اضافه کنید"
+    },
+    "fia_btn_importaccount_ttp": {
+      "en": "Select number to load",
+      "fa": "برای بارگذاری شماره را انتخاب کنید"
+    },
+    "fia_label_2": {
+      "en": "List of saved accounts",
+      "fa": "لیست اکانت های ذخیره شده"
+    },
+    "btn_cancel": {
+      "en": "Cancel",
+      "fa": "لغو"
+    },
+    "fia_btn_import_cancel_ttp": {
+      "en": "Cancelation of Number loading operations",
+      "fa": "لغو عملیات بارگذاری شماره"
+    },
+    "fi_label": {
+      "en": "Upload phone number from file",
+      "fa": "بارگذاری لیست شماره از فایل"
+    },
+    "fi_btn_importFile": {
+      "en": "Select File",
+      "fa": "انتخاب فایل"
+    },
+    "fi_btn_importFile_ttp": {
+      "en": "Select file to Loading",
+      "fa": "فایل را برای بارگذاری انتخاب کنید"
+    },
+    "fi_label_2": {
+      "en": "Manually enter phone number",
+      "fa": "شماره تلفن را به صورت دستی وارد کنید"
+    },
+    "fi_btn_importManual": {
+      "en": "Loading",
+      "fa": "بارگذاری"
+    },
+    "fi_btn_importManual_ttp": {
+      "en": "Loading entered numbers",
+      "fa": "شماره های وارد شده"
+    },
+    "fi_btn_import_cancel_ttp": {
+      "en": "Cancel number loading operation",
+      "fa": "لغو عملیات بارگذاری شماره"
+    },
+    "fi_manualNumber_ttp": {
+      "en": "Enter your phone numbers and separate them with a line break (Enter)",
+      "fa": "شماره تلفن خود را وارد کنید و آنها را با خط جدید جدا کنید (Enter)"
+    },
+    "frm_label": {
+      "en": "First Phone Number",
+      "fa": "اولین شماره تلفن"
+    },
+    "frm_label_2": {
+      "en": "Count of generate",
+      "fa": "تعداد ایجاد شماره"
+    },
+    "frm_generate_num": {
+      "en": "Enter your first desired number without 0",
+      "fa": "اولین شماره مورد نظر خود را بدون 0 وارد کنید"
+    },
+    "frm_generate_count": {
+      "en": "Enter the number you want to create the list of numbers",
+      "fa": "شماره مورد نظر برای ایجاد لیست اعداد را وارد کنید"
+    },
+    "frm_btn_g_ok": {
+      "en": "Confirmation",
+      "fa": "تایید"
+    },
+    "frm_btn_g_ok_ttp": {
+      "en": "Create list",
+      "fa": "لیست ایجاد کنید"
+    },
+    "frm_btn_g_cancel_ttp": {
+      "en": "Cancel operations",
+      "fa": "لغو عملیات"
+    },
+    "tb_header_tel": {
+      "en": "Number",
+      "fa": "شماره"
+    },
+    "tb_header_st": {
+      "en": "Status",
+      "fa": "وضعیت"
+    },
+    "tb_header_ress": {
+      "en": "Result",
+      "fa": "نتیجه"
+    },
+    "listloader_err": {
+      "en": "Error loading numbers! \nTry again",
+      "fa": "ارور در بارگذاری شماره ها !\nمجدد تلاش کنید"
+    },
+    "msgerr_ok": {
+      "en": "       OK       ",
+      "fa": "       تایید       "
+    },
+    "analyz_err": {
+      "en": "Error in number check",
+      "fa": "خطا در بررسی شماره ها"
+    },
+    "msg_err": {
+      "en": "Error sending text message!",
+      "fa": "خطا در ارسال پیام متنی !"
+    },
+    "img_err": {
+      "en": "Error sending image!",
+      "fa": "خطا در ارسال تصویر !"
+    },
+    "inputxt_err": {
+      "en": "Enter the text of your message first",
+      "fa": "ابتدا متن پیام خود را وارد کنید"
+    },
+    "inputimg_err": {
+      "en": "First select your image to send",
+      "fa": "ابتدا تصویر خود را برای ارسال انتحاب کنید"
+    },
+    "per_err": {
+      "en": "You do not have permission to use the app!",
+      "fa": "شما مجوز استفاده از برنامه را ندارید!"
+    },
+    "ldlist_err": {
+      "en": "First load your list of numbers",
+      "fa": "ابتدا لیست شماره های خود را بارگذاری کنید"
+    },
+    "export_err": {
+      "en": "Could not find item to extract from list",
+      "fa": "موردی برای استخراج از لیست یافت نشد"
+    },
+    "generate_err": {
+      "en": "You must enter the first number you want",
+      "fa": "باید اولین شماره مورد نظر خود را وارد کنید"
+    },
+    "load_sucs": {
+      "en": "List loaded successfully",
+      "fa": "لیست با موفقیت بارگذاری شد"
+    },
+    "slctnums_err": {
+      "en": "You must select the desired phone number, or enter it manually",
+      "fa": "باید شماره تلفن های مورد نظر خود را انتخاب، یا دستی وارد کنید"
+    },
+    "acc_num": {
+      "en": "Please enter your new account number to save",
+      "fa": "لطفا شماره اکانت جدید خود را برای ذخیره وارد کنید"
+    },
+    "net_err": {
+      "en": "You are not connected to the Internet! \nMake sure you are connected to the Internet",
+      "fa": "شما به اینترنت متصل نمی باشید!\nاز اتصال خود به اینترنت اطمینان حاصل فرمایید"
+    },
+    "export_sucs": {
+      "en": "Data extraction was successful",
+      "fa": "گزارش گیری با موفقیت انجام شد"
+    },
+    "listcreate_sucs": {
+      "en": "List created successfully",
+      "fa": "لیست با موفقیت ایجاد شد"
+    },
+    "num_valid": {
+      "en": "Be careful in entering the first number (phone number format)",
+      "fa": "در وارد کردن شماره اول (فرمت شماره تلفن) دقت کنید"
+    },
+    "num_load_err": {
+      "en": "Error entering phone number! \nPlease make sure the numbers are entered correctly",
+      "fa": "خطا در ورود شماره تلفن!\nلطفا در نحوه صحیح ورود شماره ها دقت کنید"
+    },
+    "undefine_feature": {
+      "en": "This feature has not been completed for app\nIf you need this feature from the app, you can send me a message to customize the app\nTelegram ID: @Hiding",
+      "fa": "این قابلیت برای برنامه تکمیل نشده است\nاگر نیاز به این قابلیت از برنامه داشته باشید\nمی توانید برای سفارشی سازی برنامه برای خودتان، در تلگرام به من پیام ارسال کنید\nTelegram ID: @Hiding"
+    }
+  }
+}

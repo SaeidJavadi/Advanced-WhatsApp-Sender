@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>372</width>
+    <width>421</width>
     <height>154</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>فرم ایجاد لیست شماره</string>
+   <string>Create Number List Form</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget{
@@ -55,7 +55,7 @@ color:  rgb(0, 255, 0);
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
+        <item row="0" column="1">
          <widget class="QLineEdit" name="generate_num">
           <property name="minimumSize">
            <size>
@@ -65,7 +65,7 @@ color:  rgb(0, 255, 0);
           </property>
           <property name="font">
            <font>
-            <family>B Nazanin</family>
+            <family>Arial</family>
             <pointsize>14</pointsize>
             <weight>50</weight>
             <italic>false</italic>
@@ -73,7 +73,7 @@ color:  rgb(0, 255, 0);
            </font>
           </property>
           <property name="toolTip">
-           <string>اولین شماره مورد نظر خود را بدون 0 وارد کنید</string>
+           <string>Enter your first number of desired number without 0</string>
           </property>
           <property name="styleSheet">
            <string notr="true"/>
@@ -86,7 +86,35 @@ color:  rgb(0, 255, 0);
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="generate_count">
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>Enter the number you want to create the list of numbers</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="placeholderText">
+           <string>10</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="font">
            <font>
@@ -101,39 +129,11 @@ color:    rgb(255, 255, 0)  ;
 }</string>
           </property>
           <property name="text">
-           <string>اولین شماره :</string>
+           <string>First Phone Number</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLineEdit" name="generate_count">
-          <property name="minimumSize">
-           <size>
-            <width>250</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>B Nazanin</family>
-            <pointsize>14</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>تعداد مورد نظر خود برای ایجاد لیست شماره ها وارد کنید</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="placeholderText">
-           <string>10</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
          <widget class="QLabel" name="label_2">
           <property name="font">
            <font>
@@ -143,7 +143,7 @@ color:    rgb(255, 255, 0)  ;
            </font>
           </property>
           <property name="text">
-           <string>تعداد ایجاد    :</string>
+           <string>Count of Generate</string>
           </property>
          </widget>
         </item>
@@ -158,7 +158,7 @@ color:    rgb(255, 255, 0)  ;
          <widget class="QPushButton" name="btn_g_cancel">
           <property name="font">
            <font>
-            <family>B Nazanin</family>
+            <family>Arial</family>
             <pointsize>14</pointsize>
             <weight>50</weight>
             <italic>false</italic>
@@ -166,7 +166,7 @@ color:    rgb(255, 255, 0)  ;
            </font>
           </property>
           <property name="toolTip">
-           <string>لغو عملیات</string>
+           <string>Cancellation of operations</string>
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton:hover:!pressed
@@ -183,7 +183,7 @@ border-radius: 10px;
 }</string>
           </property>
           <property name="text">
-           <string>لغو</string>
+           <string>Cancel</string>
           </property>
          </widget>
         </item>
@@ -191,7 +191,7 @@ border-radius: 10px;
          <widget class="QPushButton" name="btn_g_ok">
           <property name="font">
            <font>
-            <family>B Nazanin</family>
+            <family>Arial</family>
             <pointsize>14</pointsize>
             <weight>50</weight>
             <italic>false</italic>
@@ -199,7 +199,7 @@ border-radius: 10px;
            </font>
           </property>
           <property name="toolTip">
-           <string>ایجاد لیست</string>
+           <string>Create the list</string>
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton:hover:!pressed
@@ -216,7 +216,7 @@ border-radius: 10px;
 }</string>
           </property>
           <property name="text">
-           <string>تایید</string>
+           <string>Confirm</string>
           </property>
           <property name="autoDefault">
            <bool>true</bool>
@@ -234,10 +234,10 @@ border-radius: 10px;
   </layout>
  </widget>
  <tabstops>
+  <tabstop>btn_g_cancel</tabstop>
   <tabstop>generate_num</tabstop>
   <tabstop>generate_count</tabstop>
   <tabstop>btn_g_ok</tabstop>
-  <tabstop>btn_g_cancel</tabstop>
  </tabstops>
  <resources/>
  <connections/>

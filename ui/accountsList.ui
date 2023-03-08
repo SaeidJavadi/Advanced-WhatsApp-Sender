@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>فرم ایجاد لیست شماره</string>
+   <string>Create Number List Form</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel {
@@ -62,12 +62,12 @@ border-color:#a9a9a9;
       </property>
       <property name="font">
        <font>
-        <family>B Nazanin</family>
+        <family>Arial</family>
         <pointsize>14</pointsize>
        </font>
       </property>
       <property name="toolTip">
-       <string>لغو عملیات بارگزاری شماره</string>
+       <string>Cancelation of Number loading operations</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton:hover:!pressed
@@ -84,7 +84,7 @@ border-radius: 10px;
 }</string>
       </property>
       <property name="text">
-       <string>بستن</string>
+       <string>Close</string>
       </property>
       <property name="autoDefault">
        <bool>true</bool>
@@ -133,7 +133,7 @@ border-radius:5px;
        <item row="2" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>لیست اکانت های ذخیره شده:</string>
+          <string>List of Saved Accounts</string>
          </property>
         </widget>
        </item>
@@ -174,7 +174,7 @@ color:rgb(0, 0, 0);
 }</string>
          </property>
          <property name="placeholderText">
-          <string>شماره اکانت جدید</string>
+          <string>New account number</string>
          </property>
         </widget>
        </item>
@@ -194,7 +194,7 @@ color:rgb(0, 0, 0);
          </property>
          <property name="font">
           <font>
-           <family>B Nazanin</family>
+           <family>Arial</family>
            <pointsize>12</pointsize>
            <weight>75</weight>
            <italic>false</italic>
@@ -202,7 +202,7 @@ color:rgb(0, 0, 0);
           </font>
          </property>
          <property name="toolTip">
-          <string>انتخاب فایل برای بارگزاری</string>
+          <string>File Select to load</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton:hover:!pressed
@@ -219,7 +219,7 @@ border-radius: 10px;
 }</string>
          </property>
          <property name="text">
-          <string>افزودن اکانت جدید</string>
+          <string>Add new account</string>
          </property>
         </widget>
        </item>
