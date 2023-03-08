@@ -185,6 +185,10 @@
       "en": "If your listing does not include your country code prefix\n you can enter your country code here to add to all of your listing numbers when loading",
       "fa": "اگر لیست شما پیشوند کد کشور شما را شامل نمی شود\nمی توانید کد کشور خود را در اینجا وارد کنید تا هنگام بارگذاری به همه شماره های لیست شما اضافه شود"
     },
+    "areacode_hldr": {
+      "en": "Area Code",
+      "fa": "پیش شماره"
+    },
     "langs": {
       "en": "Set the program language",
       "fa": "تنظیم زبان برنامه"
@@ -362,8 +366,8 @@
       "fa": "خطا در ورود شماره تلفن!\nلطفا در نحوه صحیح ورود شماره ها دقت کنید"
     },
     "undefine_feature": {
-      "en": "This feature has not been completed for app\nIf you need this feature from the app, you can send me a message to customize the app\nTelegram ID: @Hiding",
-      "fa": "این قابلیت برای برنامه تکمیل نشده است\nاگر نیاز به این قابلیت از برنامه داشته باشید\nمی توانید برای سفارشی سازی برنامه برای خودتان، در تلگرام به من پیام ارسال کنید\nTelegram ID: @Hiding"
+      "en": "This feature has not been completed for app\nIf you need this feature from the app, you can send me a message to customize the app\nWhatsApp: +1(513)437-6572\nTelegram ID: @Hiding",
+      "fa": "این قابلیت برای برنامه تکمیل نشده است\nاگر نیاز به این قابلیت از برنامه داشته باشید\nمی توانید برای سفارشی سازی برنامه برای خودتان، در تلگرام به من پیام ارسال کنید\nWhatsApp: +1(513)437-6572\nTelegram ID: @Hiding"
     }
   }
 }

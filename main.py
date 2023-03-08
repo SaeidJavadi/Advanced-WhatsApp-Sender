@@ -169,6 +169,7 @@ class Main():
             self.ui.tab_msg.setToolTip(self.ln["tab_msg"][self.cln])
             self.ui.tab_img.setToolTip(self.ln["tab_img"][self.cln])
             self.ui.areaCode.setToolTip(self.ln["areaCode"][self.cln])
+            self.ui.areaCode.setPlaceholderText(self.ln["areacode_hldr"][self.cln])
             self.ui.langs.setToolTip(self.ln["langs"][self.cln])
         except:
             log.exception("")
