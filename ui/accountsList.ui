@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Create Number List Form</string>
+   <string>فرم ایجاد لیست شماره</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel {
@@ -67,7 +67,7 @@ border-color:#a9a9a9;
        </font>
       </property>
       <property name="toolTip">
-       <string>Cancelation of Number loading operations</string>
+       <string>لغو عملیات بارگزاری شماره</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton:hover:!pressed
@@ -84,7 +84,7 @@ border-radius: 10px;
 }</string>
       </property>
       <property name="text">
-       <string>Close</string>
+       <string>بستن</string>
       </property>
       <property name="autoDefault">
        <bool>true</bool>
@@ -133,7 +133,7 @@ border-radius:5px;
        <item row="2" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>List of Saved Accounts</string>
+          <string>لیست اکانت های ذخیره شده:</string>
          </property>
         </widget>
        </item>
@@ -174,7 +174,7 @@ color:rgb(0, 0, 0);
 }</string>
          </property>
          <property name="placeholderText">
-          <string>New account number</string>
+          <string>شماره اکانت جدید</string>
          </property>
         </widget>
        </item>
@@ -202,7 +202,7 @@ color:rgb(0, 0, 0);
           </font>
          </property>
          <property name="toolTip">
-          <string>File Select to load</string>
+          <string>انتخاب فایل برای بارگزاری</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton:hover:!pressed
@@ -219,7 +219,7 @@ border-radius: 10px;
 }</string>
          </property>
          <property name="text">
-          <string>Add new account</string>
+          <string>افزودن اکانت جدید</string>
          </property>
         </widget>
        </item>

@@ -1,5 +1,4 @@
-### Advanced WhatsApp Sender And Analyzer
-
+### WhatsBotPy 
 - Analyzer: encontre números de telefone que tenham conta no WhatsApp
 - Envio de mensagem de texto e mensagem de imagem
 

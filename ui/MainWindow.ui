@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>554</height>
+    <width>635</width>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@ color:  rgb(0, 255, 0);
   <widget class="QWidget" name="Main">
    <property name="styleSheet">
     <string notr="true">QWidget {
-background-color:rgb(0, 124, 8);
+background-color: rgb(44, 171, 37);
 border-radius: 15px;
 }
 
@@ -36,320 +36,17 @@ QTableView {
 background-color: rgb(253, 255, 197);
 }</string>
    </property>
-   <layout class="QGridLayout" name="gridLayout_6">
-    <property name="leftMargin">
-     <number>6</number>
-    </property>
-    <property name="topMargin">
-     <number>6</number>
-    </property>
-    <property name="rightMargin">
-     <number>6</number>
-    </property>
-    <property name="bottomMargin">
-     <number>6</number>
-    </property>
-    <property name="spacing">
-     <number>4</number>
-    </property>
-    <item row="0" column="0" colspan="2">
-     <widget class="QFrame" name="frame_TabBar">
-      <property name="styleSheet">
-       <string notr="true">QFrame{
-	background-color: rgb(0, 124, 8);
-}
-
-QLabel{
-color:rgb(255, 255, 255)
-}</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_12">
-       <property name="leftMargin">
-        <number>5</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="1">
-        <widget class="QLabel" name="lb_version">
-         <property name="font">
-          <font>
-           <pointsize>6</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QPushButton" name="btn_maxmin">
-         <property name="minimumSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>MesloLGS NF</family>
-           <pointsize>16</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Application window mode</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton:hover:!pressed
-{
-	background-color: rgb(0, 0, 0);
-	color: rgb(3, 255, 74);
-}
-QPushButton{
-	background-color: rgb(255, 255, 255);
-border-radius: 5px;
-}</string>
-         </property>
-         <property name="text">
-          <string>类</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7">
-        <widget class="QPushButton" name="btn_close">
-         <property name="minimumSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>MesloLGS NF</family>
-           <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Close the app</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton:hover:!pressed
-{
-	background-color: rgb(255, 12, 16);
-	color: rgb(255, 255, 0);
-}
-QPushButton{
-	background-color: rgb(255, 255, 255);
-border-radius: 5px;
-}</string>
-         </property>
-         <property name="text">
-          <string>窱</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="4">
-        <widget class="QComboBox" name="langs">
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="mouseTracking">
-          <bool>true</bool>
-         </property>
-         <property name="toolTip">
-          <string>Set the program language</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QComboBox{
-background-color: #eee1c5   ;
-color:rgb(30, 0, 255);
-border: 1px solid #096578  ;
-border-radius: 2px;
-}</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QPushButton" name="btn_min">
-         <property name="minimumSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>MesloLGS NF</family>
-           <pointsize>18</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>to make it least</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton:hover:!pressed
-{
-	background-color: rgb(100, 50, 0);
-	color: rgb(248, 44, 255);
-}
-QPushButton{
-	background-color: rgb(255, 255, 255);
-border-radius: 5px;
-}</string>
-         </property>
-         <property name="text">
-          <string>-</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_appName">
-         <property name="font">
-          <font>
-           <family>MesloLGS NF</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel:hover:!pressed
-{
-	color: rgb(255, 213, 0);
-}
-</string>
-         </property>
-         <property name="text">
-          <string>Advanced WhatsApp</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="areaCode">
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>30</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your listing does not include your country code prefix&lt;/p&gt;&lt;p&gt;you can enter your country code here to add to all of your listing numbers when loading&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-background-color: #eee1c5   ;
-color:rgb(30, 0, 255);
-border: 1px solid #096578  ;
-border-radius: 3px;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string>Area Code</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
+   <layout class="QGridLayout" name="gridLayout_13">
     <item row="1" column="0">
      <widget class="QFrame" name="frame_msg">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="minimumSize">
        <size>
-        <width>250</width>
+        <width>335</width>
         <height>0</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>6</pointsize>
-       </font>
-      </property>
       <property name="toolTip">
-       <string>List of numbers that are checked in the program</string>
+       <string>لیست شماره های که در برنامه بررسی می شوند</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QFrame {
@@ -364,19 +61,19 @@ background-color: rgb(63, 78, 64) ;
       </property>
       <layout class="QGridLayout" name="gridLayout_8">
        <property name="leftMargin">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="topMargin">
-        <number>8</number>
+        <number>6</number>
        </property>
        <property name="rightMargin">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="bottomMargin">
-        <number>3</number>
+        <number>5</number>
        </property>
        <property name="spacing">
-        <number>3</number>
+        <number>4</number>
        </property>
        <item row="0" column="0">
         <widget class="QFrame" name="frame_numLebel">
@@ -389,7 +86,6 @@ background-color: rgb(63, 78, 64) ;
          <property name="styleSheet">
           <string notr="true">QFrame {
 background-color: rgb(207, 223, 162);
-border-radius: 20px;
 }</string>
          </property>
          <property name="frameShape">
@@ -400,22 +96,16 @@ border-radius: 20px;
          </property>
          <layout class="QGridLayout" name="gridLayout_10">
           <property name="leftMargin">
-           <number>2</number>
+           <number>7</number>
           </property>
           <property name="topMargin">
-           <number>2</number>
-          </property>
-          <property name="rightMargin">
-           <number>2</number>
+           <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>2</number>
+           <number>0</number>
           </property>
           <item row="0" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <property name="spacing">
-             <number>2</number>
-            </property>
             <item>
              <spacer name="horizontalSpacer_6">
               <property name="orientation">
@@ -434,13 +124,13 @@ border-radius: 20px;
               <property name="font">
                <font>
                 <family>Arial</family>
-                <pointsize>12</pointsize>
+                <pointsize>14</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
               <property name="text">
-               <string>Numbers List</string>
+               <string> لیست شماره ها </string>
               </property>
              </widget>
             </item>
@@ -467,15 +157,8 @@ border-radius: 20px;
          <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="font">
           <font>
-           <family>Arial</family>
            <pointsize>8</pointsize>
           </font>
          </property>
@@ -491,18 +174,6 @@ color: rgb(0, 174, 255) ;
          <property name="autoScrollMargin">
           <number>16</number>
          </property>
-         <attribute name="horizontalHeaderMinimumSectionSize">
-          <number>32</number>
-         </attribute>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>70</number>
-         </attribute>
-         <attribute name="verticalHeaderMinimumSectionSize">
-          <number>16</number>
-         </attribute>
-         <attribute name="verticalHeaderDefaultSectionSize">
-          <number>35</number>
-         </attribute>
         </widget>
        </item>
       </layout>
@@ -512,7 +183,7 @@ color: rgb(0, 174, 255) ;
      <widget class="QFrame" name="frame_btn">
       <property name="minimumSize">
        <size>
-        <width>260</width>
+        <width>0</width>
         <height>0</height>
        </size>
       </property>
@@ -530,35 +201,20 @@ background-color: rgb(63, 78, 64) ;
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <property name="leftMargin">
-        <number>3</number>
-       </property>
-       <property name="topMargin">
-        <number>3</number>
-       </property>
-       <property name="rightMargin">
-        <number>3</number>
-       </property>
-       <property name="bottomMargin">
-        <number>3</number>
-       </property>
-       <property name="spacing">
-        <number>1</number>
-       </property>
+      <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
-          <number>3</number>
+          <number>4</number>
          </property>
          <property name="leftMargin">
-          <number>2</number>
+          <number>4</number>
          </property>
          <property name="topMargin">
-          <number>2</number>
+          <number>4</number>
          </property>
          <property name="rightMargin">
-          <number>2</number>
+          <number>4</number>
          </property>
          <property name="bottomMargin">
           <number>4</number>
@@ -568,28 +224,16 @@ background-color: rgb(63, 78, 64) ;
            <property name="enabled">
             <bool>true</bool>
            </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>25</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>40</height>
+             <height>50</height>
             </size>
            </property>
            <property name="font">
             <font>
              <family>Arial</family>
-             <pointsize>9</pointsize>
+             <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
@@ -598,7 +242,7 @@ background-color: rgb(63, 78, 64) ;
             <bool>false</bool>
            </property>
            <property name="toolTip">
-            <string>Loading Numbers List</string>
+            <string>بارگذاری لیست شماره ها</string>
            </property>
            <property name="statusTip">
             <string/>
@@ -618,11 +262,8 @@ QPushButton{
 border-radius: 10px;
 }</string>
            </property>
-           <property name="locale">
-            <locale language="Persian" country="Afghanistan"/>
-           </property>
            <property name="text">
-            <string>Load</string>
+            <string>بارگذاری</string>
            </property>
           </widget>
          </item>
@@ -631,34 +272,22 @@ border-radius: 10px;
            <property name="enabled">
             <bool>true</bool>
            </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>25</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>40</height>
+             <height>50</height>
             </size>
            </property>
            <property name="font">
             <font>
              <family>Arial</family>
-             <pointsize>9</pointsize>
+             <pointsize>10</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
            <property name="toolTip">
-            <string>Created list from a number range</string>
+            <string>ایجاد از یک رنج شماره </string>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton:hover:!pressed
@@ -666,17 +295,15 @@ border-radius: 10px;
   border: 2px dashed rgb(255, 85, 0);
 	background-color: rgb(129, 125, 255);
 	color: #FF0000;
-	padding: 0 5px 0 5px;
 }
 
 QPushButton{
 	background-color: rgb(16, 255, 196);
 border-radius: 10px;
-	padding: 0 5px 0 5px;
 }</string>
            </property>
            <property name="text">
-            <string>Generator</string>
+            <string>ایجاد لیست</string>
            </property>
           </widget>
          </item>
@@ -685,34 +312,22 @@ border-radius: 10px;
            <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>25</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>40</height>
+             <height>50</height>
             </size>
            </property>
            <property name="font">
             <font>
              <family>Arial</family>
-             <pointsize>9</pointsize>
+             <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
            <property name="toolTip">
-            <string>Get output from program results</string>
+            <string>خروجی گرفتن از نتایج برنامه</string>
            </property>
            <property name="statusTip">
             <string/>
@@ -731,7 +346,7 @@ border-radius: 10px;
 }</string>
            </property>
            <property name="text">
-            <string>Export</string>
+            <string>استخراج</string>
            </property>
           </widget>
          </item>
@@ -740,34 +355,22 @@ border-radius: 10px;
            <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>25</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>40</height>
+             <height>50</height>
             </size>
            </property>
            <property name="font">
             <font>
              <family>Arial</family>
-             <pointsize>9</pointsize>
+             <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
            <property name="toolTip">
-            <string>Clear the list of numbers</string>
+            <string>پاک کردن لیست شماره ها</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton:hover:!pressed
@@ -783,7 +386,7 @@ border-radius: 10px;
 }</string>
            </property>
            <property name="text">
-            <string>Clear</string>
+            <string>پاک کردن</string>
            </property>
           </widget>
          </item>
@@ -791,33 +394,17 @@ border-radius: 10px;
        </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="btn_acclist">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>24</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>50</height>
+           <height>30</height>
           </size>
          </property>
          <property name="font">
           <font>
-           <pointsize>9</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
-         </property>
-         <property name="toolTip">
-          <string>List of Stored Accounts</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton:hover:!pressed
@@ -832,49 +419,16 @@ border-radius: 10px;
 }</string>
          </property>
          <property name="text">
-          <string>Accounts List</string>
+          <string>لیست اکانت ها</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="topMargin">
-          <number>4</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
          <item>
           <widget class="QTabWidget" name="start_tab">
            <property name="enabled">
             <bool>true</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
            </property>
            <property name="toolTip">
             <string/>
@@ -888,7 +442,6 @@ border-radius: 10px;
            <property name="styleSheet">
             <string notr="true">QTabWidget{
 background-color: rgb(0, 0, 0);
-	border-radius: 15px;
 }</string>
            </property>
            <property name="currentIndex">
@@ -896,7 +449,7 @@ background-color: rgb(0, 0, 0);
            </property>
            <widget class="QWidget" name="tab_Analyz">
             <property name="toolTip">
-             <string>Number list Check</string>
+             <string>تحلیل لیست شماره ها</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
@@ -909,16 +462,11 @@ background-color: rgb(0, 0, 0);
 }</string>
             </property>
             <attribute name="title">
-             <string>Check</string>
+             <string>آنالیز شماره ها</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_13">
+            <layout class="QGridLayout" name="gridLayout_16">
              <item row="0" column="0">
               <widget class="QTextBrowser" name="textBrowser">
-               <property name="font">
-                <font>
-                 <family>Arial</family>
-                </font>
-               </property>
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
                </property>
@@ -926,8 +474,9 @@ background-color: rgb(0, 0, 0);
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial'; font-size:8.1pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Consolas','Consolas','Courier New','monospace'; font-size:10pt; font-weight:600; color:#000000;&quot;&gt;&lt;br /&gt;&lt;br /&gt;You can use the number Check feature to check your list of numbers to identify numbers that have WhatsApp accounts.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.1pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600; color:#000000;&quot;&gt;شما با استفاده از امکان آنالیز شماره ها می تونید لیست شماره های خود را مورد بررسی قرار دهید تا برنامه شماره های که دارای حساب کاربری واتساپ می باشند را شناسایی کند&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -942,7 +491,7 @@ p, li { white-space: pre-wrap; }
              </font>
             </property>
             <property name="toolTip">
-             <string>Send text message</string>
+             <string>ارسال پیام متنی</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
@@ -960,9 +509,9 @@ color:rgb(0, 0, 255);
 }</string>
             </property>
             <attribute name="title">
-             <string>Text Message</string>
+             <string>پیام متنی</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_5">
+            <layout class="QGridLayout" name="gridLayout_4">
              <item row="0" column="0">
               <widget class="QLabel" name="label">
                <property name="minimumSize">
@@ -974,7 +523,7 @@ color:rgb(0, 0, 255);
                <property name="font">
                 <font>
                  <family>Arial</family>
-                 <pointsize>9</pointsize>
+                 <pointsize>12</pointsize>
                  <weight>75</weight>
                  <italic>false</italic>
                  <bold>true</bold>
@@ -982,64 +531,23 @@ color:rgb(0, 0, 255);
                </property>
                <property name="styleSheet">
                 <string notr="true">QLabel{
-color:rgb(0, 0, 0);
+color:  rgb(170, 0, 255);
 }</string>
                </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The text of the message:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QTextEdit" name="textMSG">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Arial</family>
-                 <pointsize>9</pointsize>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>The text of your message to send</string>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::RightToLeft</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QTextEdit {
-background-color: rgb(255, 255, 255);
-border-radius: 5px;
-}
-</string>
+                <string>متن پیام</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
               <widget class="QFrame" name="frame_sleep">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>60</height>
-                </size>
-               </property>
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
                <property name="styleSheet">
                 <string notr="true">QFrame {
 background-color: rgb(247, 212, 255)  ;
-border-radius:10px;
+border-redius:10px;
 }
 
 QLabel{
@@ -1057,6 +565,24 @@ background-color: rgb(247, 212, 255)  ;
                 <enum>QFrame::Raised</enum>
                </property>
                <layout class="QGridLayout" name="gridLayout_2">
+                <item row="0" column="0" colspan="3">
+                 <widget class="QLabel" name="label_2">
+                  <property name="font">
+                   <font>
+                    <family>Arial</family>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>زمان وقفه هر ارسال بین</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="0">
                  <widget class="QLineEdit" name="sleepMax">
                   <property name="minimumSize">
@@ -1073,13 +599,13 @@ background-color: rgb(247, 212, 255)  ;
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <pointsize>10</pointsize>
                     <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
                   <property name="toolTip">
-                   <string>Most downtime</string>
+                   <string>بیشترین زمان وقفه </string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true"/>
@@ -1103,13 +629,13 @@ background-color: rgb(247, 212, 255)  ;
                   <property name="font">
                    <font>
                     <family>Arial</family>
-                    <pointsize>9</pointsize>
+                    <pointsize>14</pointsize>
                     <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
                   <property name="text">
-                   <string>and</string>
+                   <string> و</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1132,13 +658,13 @@ background-color: rgb(247, 212, 255)  ;
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <pointsize>10</pointsize>
                     <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
                   <property name="toolTip">
-                   <string>Shortest downtime</string>
+                   <string>کمترین زمان وقفه</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true"/>
@@ -1151,18 +677,18 @@ background-color: rgb(247, 212, 255)  ;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0" colspan="3">
-                 <widget class="QLabel" name="label_2">
+                <item row="2" column="0" colspan="3">
+                 <widget class="QLabel" name="label_4">
                   <property name="font">
                    <font>
                     <family>Arial</family>
-                    <pointsize>9</pointsize>
+                    <pointsize>11</pointsize>
                     <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
                   <property name="text">
-                   <string>Interrupt time of each post between</string>
+                   <string>ثانیه تنظیم می شود</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1172,11 +698,46 @@ background-color: rgb(247, 212, 255)  ;
                </layout>
               </widget>
              </item>
+             <item row="1" column="0">
+              <widget class="QTextEdit" name="textMSG">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Arial</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>متن پیام شما برای ارسال</string>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QTextEdit {
+background-color: rgb(255, 255, 255);
+border-radius: 5px;
+}
+</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
            <widget class="QWidget" name="tab_img">
             <property name="toolTip">
-             <string>Send image</string>
+             <string>ارسال تصویر</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
@@ -1189,9 +750,9 @@ background-color: rgb(0, 0, 0);
 }</string>
             </property>
             <attribute name="title">
-             <string>Image</string>
+             <string>تصویر</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_7">
+            <layout class="QGridLayout" name="gridLayout_15">
              <item row="0" column="0">
               <widget class="QFrame" name="frame_img">
                <property name="styleSheet">
@@ -1261,7 +822,7 @@ border-radius: 5px;
                         </font>
                        </property>
                        <property name="toolTip">
-                        <string>Select an image to send</string>
+                        <string>انتخاب تصویر برای ارسال</string>
                        </property>
                        <property name="layoutDirection">
                         <enum>Qt::RightToLeft</enum>
@@ -1280,7 +841,7 @@ color: rgb(51, 0, 255)  ;
 }</string>
                        </property>
                        <property name="text">
-                        <string>Select Image</string>
+                        <string>انتخاب تصویر</string>
                        </property>
                       </widget>
                      </item>
@@ -1299,22 +860,6 @@ color: rgb(51, 0, 255)  ;
                      </item>
                     </layout>
                    </item>
-                   <item row="1" column="0" colspan="2">
-                    <widget class="QLabel" name="label_caption">
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>50</height>
-                      </size>
-                     </property>
-                     <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
-                     </property>
-                     <property name="text">
-                      <string>Enter your caption if needed</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="2" column="0" colspan="2">
                     <widget class="QTextEdit" name="caption">
                      <property name="maximumSize">
@@ -1324,14 +869,14 @@ color: rgb(51, 0, 255)  ;
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Caption of your desired image</string>
+                      <string>کپشن تصویر مورد نظر شما</string>
                      </property>
                      <property name="layoutDirection">
                       <enum>Qt::RightToLeft</enum>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">QTextEdit{
-background-color:rgba(143, 133, 56,0.5);
+background-color: rgb(255, 255, 255);
 border-radius: 5px;
 }</string>
                      </property>
@@ -1341,26 +886,11 @@ border-radius: 5px;
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="imgName">
-                     <property name="styleSheet">
-                      <string notr="true">QLabel {
-color:  rgb(158, 2, 255)  ;
-}</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
                     <widget class="QLabel" name="imgShow">
                      <property name="minimumSize">
                       <size>
-                       <width>80</width>
-                       <height>80</height>
+                       <width>0</width>
+                       <height>120</height>
                       </size>
                      </property>
                      <property name="maximumSize">
@@ -1377,17 +907,39 @@ color:  rgb(158, 2, 255)  ;
                      </property>
                     </widget>
                    </item>
+                   <item row="3" column="1">
+                    <widget class="QLabel" name="imgName">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+color:  rgb(158, 2, 255)  ;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_caption">
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>50</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>درصورت نیاز کپشن خود را وارد کنید:</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="1" column="0">
                  <widget class="QFrame" name="frame">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>60</height>
-                   </size>
-                  </property>
                   <property name="layoutDirection">
                    <enum>Qt::RightToLeft</enum>
                   </property>
@@ -1395,15 +947,15 @@ color:  rgb(158, 2, 255)  ;
                    <string notr="true">QLineEdit{
 background-color: rgb(234, 255, 201);
 color:rgb(0, 0, 255);
-border-style: solid;
-border-bottom-width: 1px;
-border-bottom-color:rgb(255, 136, 0);
-border-radius: 10px;
+    border-style: solid;
+    border-bottom-width: 1px;
+	border-bottom-color: rgb(255, 136, 0);
+   border-radius: 10px;
 }
 
 QFrame {
 background-color: rgb(247, 212, 255)  ;
-border-radius: 10px;
+border-redius:10px;
 }
 
 QLabel{
@@ -1420,19 +972,19 @@ background-color: rgb(247, 212, 255)  ;
                   <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_15">
+                  <layout class="QGridLayout" name="gridLayout_5">
                    <item row="0" column="0" colspan="3">
                     <widget class="QLabel" name="label_11">
                      <property name="font">
                       <font>
                        <family>Arial</family>
-                       <pointsize>9</pointsize>
+                       <pointsize>12</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
                      <property name="text">
-                      <string>Interrupt time of each post between</string>
+                      <string>زمان وقفه هر ارسال بین</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignCenter</set>
@@ -1455,13 +1007,13 @@ background-color: rgb(247, 212, 255)  ;
                      </property>
                      <property name="font">
                       <font>
-                       <pointsize>9</pointsize>
+                       <pointsize>10</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
                      <property name="toolTip">
-                      <string>Seconds are set</string>
+                      <string>بیشترین زمان وقفه </string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true"/>
@@ -1485,13 +1037,13 @@ background-color: rgb(247, 212, 255)  ;
                      <property name="font">
                       <font>
                        <family>Arial</family>
-                       <pointsize>9</pointsize>
+                       <pointsize>14</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
                      <property name="text">
-                      <string>and</string>
+                      <string> و</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignCenter</set>
@@ -1514,13 +1066,13 @@ background-color: rgb(247, 212, 255)  ;
                      </property>
                      <property name="font">
                       <font>
-                       <pointsize>9</pointsize>
+                       <pointsize>10</pointsize>
                        <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
                      <property name="toolTip">
-                      <string>Shortest downtime</string>
+                      <string>کمترین زمان وقفه</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true"/>
@@ -1530,6 +1082,24 @@ background-color: rgb(247, 212, 255)  ;
                      </property>
                      <property name="placeholderText">
                       <string>3</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" colspan="3">
+                    <widget class="QLabel" name="label_12">
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                       <pointsize>11</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>ثانیه تنظیم می شود</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -1581,28 +1151,28 @@ background-color: rgb(0, 0, 0);
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_3">
+      <layout class="QGridLayout" name="gridLayout_7">
        <property name="leftMargin">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="topMargin">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="rightMargin">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="bottomMargin">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="spacing">
-        <number>3</number>
+        <number>4</number>
        </property>
        <item row="0" column="0">
         <widget class="QPushButton" name="btn_start">
          <property name="minimumSize">
           <size>
-           <width>150</width>
-           <height>70</height>
+           <width>250</width>
+           <height>80</height>
           </size>
          </property>
          <property name="font">
@@ -1614,7 +1184,7 @@ background-color: rgb(0, 0, 0);
           </font>
          </property>
          <property name="toolTip">
-          <string>Start the program</string>
+          <string>شروع فعالیت برنامه</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton:hover:!pressed
@@ -1626,11 +1196,12 @@ background-color: rgb(0, 0, 0);
 QPushButton{
   border: 2px solid  rgb(226, 157, 255);
 	background-color: rgb(105, 210, 76);
-	border-radius: 15px;
+border-radius: 15px;
+
 }</string>
          </property>
          <property name="text">
-          <string>Start</string>
+          <string>شروع</string>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
@@ -1651,7 +1222,7 @@ QPushButton{
           </font>
          </property>
          <property name="toolTip">
-          <string>Program activity reviewreport</string>
+          <string>گزارش فعالیت برنامه</string>
          </property>
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
@@ -1660,110 +1231,11 @@ QPushButton{
           <string notr="true"/>
          </property>
          <property name="placeholderText">
-          <string>        *** Program Log ***</string>
+          <string>     *** Program Log ***</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2" rowspan="2">
-        <widget class="QFrame" name="frame_LCD_label">
-         <property name="toolTip">
-          <string>Instant app review statistics</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QFrame{
-background-color: rgb(191, 191, 0);
-border-radius: 10px;
-}</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="leftMargin">
-           <number>2</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>2</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>2</number>
-          </property>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_count_txt_5">
-            <property name="font">
-             <font>
-              <family>Arial</family>
-              <pointsize>9</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Unsuccessful</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_count_txt_3">
-            <property name="font">
-             <font>
-              <family>Arial</family>
-              <pointsize>9</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Reviewed</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_count_txt_4">
-            <property name="font">
-             <font>
-              <family>Arial</family>
-              <pointsize>9</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Successful</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_count_txt">
-            <property name="font">
-             <font>
-              <family>Arial</family>
-              <pointsize>9</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Total</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="3" rowspan="2">
         <widget class="QFrame" name="frame_LCD">
          <property name="minimumSize">
           <size>
@@ -1772,10 +1244,7 @@ border-radius: 10px;
           </size>
          </property>
          <property name="toolTip">
-          <string>Instant app  statistics</string>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+          <string>آمار لحظه ای بررسی برنامه</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QFrame{
@@ -1789,20 +1258,11 @@ background-color: rgb(191, 191, 0) ;
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_11">
-          <property name="leftMargin">
+          <property name="topMargin">
            <number>2</number>
           </property>
-          <property name="topMargin">
-           <number>7</number>
-          </property>
-          <property name="rightMargin">
-           <number>4</number>
-          </property>
           <property name="bottomMargin">
-           <number>7</number>
-          </property>
-          <property name="spacing">
-           <number>3</number>
+           <number>2</number>
           </property>
           <item row="1" column="0">
            <widget class="QLCDNumber" name="lcdNumber_reviewed">
@@ -1848,6 +1308,96 @@ color: rgb(0, 0, 255) ;
          </layout>
         </widget>
        </item>
+       <item row="0" column="3" rowspan="2">
+        <widget class="QFrame" name="frame_LCD_label">
+         <property name="toolTip">
+          <string>آمار لحظه ای بررسی برنامه</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame{
+background-color: rgb(191, 191, 0);
+border-radius: 10px;
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_count_txt_5">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>عملیات ناموفق:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_count_txt_3">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>11</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>بررسی شده:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_count_txt_4">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>عملیات موفق:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_count_txt">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>تعداد کل :</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="btn_stop">
          <property name="enabled">
@@ -1855,20 +1405,20 @@ color: rgb(0, 0, 255) ;
          </property>
          <property name="minimumSize">
           <size>
-           <width>150</width>
-           <height>40</height>
+           <width>120</width>
+           <height>20</height>
           </size>
          </property>
          <property name="font">
           <font>
            <family>Arial</family>
-           <pointsize>10</pointsize>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="toolTip">
-          <string>Stop the program</string>
+          <string>توقف برنامه</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton:hover:!pressed
@@ -1885,7 +1435,270 @@ color: rgb(255, 255, 255);
 }</string>
          </property>
          <property name="text">
-          <string>Stop</string>
+          <string>توقف</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QFrame" name="frame_TabBar">
+      <property name="styleSheet">
+       <string notr="true">QFrame{
+	background-color: rgb(44, 171, 37);
+}
+
+QLabel{
+color:rgb(255, 255, 255)
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_12">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="1">
+        <widget class="QLabel" name="lb_version">
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QPushButton" name="btn_maxmin">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>MesloLGS NF</family>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>حالت پنجره برنامه</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:hover:!pressed
+{
+	background-color: rgb(0, 0, 0);
+	color: rgb(3, 255, 74);
+}
+QPushButton{
+	background-color: rgb(255, 255, 255);
+border-radius: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string>类</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QPushButton" name="btn_close">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>MesloLGS NF</family>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>بستن برنامه</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:hover:!pressed
+{
+	background-color: rgb(255, 12, 16);
+	color: rgb(255, 255, 0);
+}
+QPushButton{
+	background-color: rgb(255, 255, 255);
+border-radius: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string>窱</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="4">
+        <widget class="QComboBox" name="lang">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>تنظیم زبان برنامه</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QComboBox{
+background-color: #eee1c5   ;
+color:rgb(30, 0, 255);
+border: 1px solid #096578  ;
+border-radius: 2px;
+}</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>EN</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>FA</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="btn_min">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>MesloLGS NF</family>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>به حداقل رساندن</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:hover:!pressed
+{
+	background-color: rgb(100, 50, 0);
+	color: rgb(248, 44, 255);
+}
+QPushButton{
+	background-color: rgb(255, 255, 255);
+border-radius: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string>-</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_appName">
+         <property name="font">
+          <font>
+           <family>African</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel:hover:!pressed
+{
+	color: rgb(255, 213, 0);
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Advanced WhatsApp</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="areaCode">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>پیش شماره کد کشور شما</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit{
+background-color: #eee1c5   ;
+color:rgb(30, 0, 255);
+border: 1px solid #096578  ;
+border-radius: 3px;
+}</string>
+         </property>
+         <property name="text">
+          <string>98</string>
          </property>
         </widget>
        </item>
@@ -1900,6 +1713,7 @@ color: rgb(255, 255, 255);
   <tabstop>btn_gnarate</tabstop>
   <tabstop>btn_export</tabstop>
   <tabstop>btn_clear</tabstop>
+  <tabstop>start_tab</tabstop>
   <tabstop>textBrowser</tabstop>
   <tabstop>btn_start</tabstop>
   <tabstop>btn_stop</tabstop>

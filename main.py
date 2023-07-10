@@ -1,12 +1,12 @@
 import csv
 import os
+import dpi
 import sys
 import re
 import sqlite3
 import xlrd
 import requests
 import time
-import json
 from PyQt5.QtGui import QBrush, QTextCursor, QColor, QRegExpValidator, QIcon, QPixmap, QFontDatabase, QFont
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer, QPoint, QRegExp, QAbstractTableModel
 from PyQt5.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
@@ -16,24 +16,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox,
 from wasender import Ui_MainWindow
 import icons_rc
 from browserCtrl import Web
-import logging
-import logging.config
-from logging.handlers import SocketHandler
-import pythonjsonlogger.jsonlogger
-from src import dpi
-from src import logcolor
-
-# config
-if not os.path.exists(fr'.\src\logs'):
-    os.mkdir(fr'.\src\logs')
-logging.config.fileConfig(fr"src\logging.ini", disable_existing_loggers=True)
-log = logging.getLogger(__name__)
-try:
-    socket_handler = SocketHandler("127.0.0.1", 19996)
-except:
-    pass
-log.addHandler(socket_handler)
-# config ends
 
 
 class Main():
@@ -45,8 +27,8 @@ class Main():
         self.__VERSION__ = '1.0'
         self.cv = 0
         self.Net = None
-        self.User = True
-        log.info(f"===== Program Runing {self.__VERSION__} =====")
+        self.User = None
+
         self.insert = NetWork(version=self.__VERSION__)
         self.insert.start()
         # self.insert.Checker.connect(self.qthreadInsert)
@@ -56,14 +38,17 @@ class Main():
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.MainWindow)
         self.MainWindow.center()
+
+        font_db = QFontDatabase()
+        font_db1 = QFontDatabase()
         font_db2 = QFontDatabase()
+        font_id = font_db.addApplicationFont(r"fonts\african.ttf")
+        font_db.applicationFontFamilies(font_id)
+        font_id1 = font_db1.addApplicationFont(r"fonts\Arial.ttf")
+        font_db1.applicationFontFamilies(font_id1)
         font_id2 = font_db2.addApplicationFont(r"fonts\MesloLGS NF.ttf")
         font_db2.applicationFontFamilies(font_id2)
-        with open("./src/lang/translations.json", encoding="utf8") as f:
-            self.lang = json.load(f)
-        self.ln = self.lang["translatables"]
-        self.languageConf()
-        self.cln = self.ui.langs.currentText()   # current language
+
         if not os.path.exists('temp'):
             os.mkdir('temp')
         self.dbPath = r"./temp/temporary.data"
@@ -80,14 +65,10 @@ class Main():
         self.ui.lb_version.setText(self.__VERSION__)
         regex = QRegExp("^(?!0+$)[0-9]+$")
         self.validator = QRegExpValidator(regex)
-        # forms init
-        self.initGenerate()
-        self.initImport()
-        self.initAccountList()
-
         icon = QIcon()
         icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
         self.MainWindow.setWindowIcon(icon)
+
         self.oldPos = self.MainWindow.pos()
         self.areaCode = self.ui.areaCode.text()
         self.RememberLogin = True
@@ -102,133 +83,136 @@ class Main():
         self.ui.btn_stop.clicked.connect(self.stop_progress)
         self.ui.LogBox.setReadOnly(True)
         self.ui.LogBox.setTextInteractionFlags(Qt.NoTextInteraction)  # non-selectable Text in QPlainTextEdit
-        self.ui.langs.currentIndexChanged.connect(self.languageSet)
+        self.ui.lang.currentIndexChanged.connect(self.languageSet)
+        self.language = self.ui.lang.currentText()
         self.languageSet()
 
         self.MainWindow.show()
         sys.exit(app.exec_())
 
-    def languageConf(self):
-        self.ui.langs.clear()
-        for i, l in enumerate(self.lang["languages"]):
-            self.ui.langs.addItem("")
-            self.ui.langs.setItemText(i, l)
-            if i == 0:
-                self.ui.langs.setCurrentIndex(i)
-
     def languageSet(self):
-        self.cln = self.ui.langs.currentText()
-        log.debug(fr"change language to `{self.cln}`")
-        try:
-            self.ui.btn_import.setText(self.ln["btn_import"][self.cln])
-            self.ui.btn_import.setToolTip(self.ln["btn_import_ttp"][self.cln])
-            self.ui.btn_gnarate.setText(self.ln["btn_gnarate"][self.cln])
-            self.ui.btn_gnarate.setToolTip(self.ln["btn_gnarate_ttp"][self.cln])
-            self.ui.btn_export.setText(self.ln["btn_export"][self.cln])
-            self.ui.btn_export.setToolTip(self.ln["btn_export_ttp"][self.cln])
-            self.ui.btn_clear.setText(self.ln["btn_clear"][self.cln])
-            self.ui.btn_clear.setToolTip(self.ln["btn_clear_ttp"][self.cln])
-            self.ui.btn_acclist.setText(self.ln["btn_acclist"][self.cln])
-            self.ui.btn_acclist.setToolTip(self.ln["btn_acclist_ttp"][self.cln])
-            self.ui.btn_start.setText(self.ln["btn_start"][self.cln])
-            self.ui.btn_start.setToolTip(self.ln["btn_start_ttp"][self.cln])
-            self.ui.btn_stop.setText(self.ln["btn_stop"][self.cln])
-            self.ui.btn_stop.setToolTip(self.ln["btn_stop_ttp"][self.cln])
-            self.ui.whatsAppNumbers.setText(self.ln["whatsAppNumbers"][self.cln])
-            self.ui.label_count_txt.setText(self.ln["label_count_txt"][self.cln])
-            self.ui.label_count_txt_3.setText(self.ln["label_count_txt_3"][self.cln])
-            self.ui.label_count_txt_4.setText(self.ln["label_count_txt_4"][self.cln])
-            self.ui.label_count_txt_5.setText(self.ln["label_count_txt_5"][self.cln])
-            self.ui.textBrowser.setText(self.ln["textBrowser"][self.cln])
-            self.ui.start_tab.setTabText(self.ui.start_tab.indexOf(
-                self.ui.tab_Analyz), self.ln["start_tab_a"][self.cln])
-            self.ui.start_tab.setTabText(self.ui.start_tab.indexOf(self.ui.tab_msg), self.ln["start_tab_m"][self.cln])
-            self.ui.start_tab.setTabText(self.ui.start_tab.indexOf(self.ui.tab_img), self.ln["start_tab_i"][self.cln])
-            self.ui.frame_LCD_label.setToolTip(self.ln["frame_LCD_label"][self.cln])
-            self.ui.frame_LCD.setToolTip(self.ln["frame_LCD"][self.cln])
-            self.ui.LogBox.setToolTip(self.ln["LogBox"][self.cln])
-            self.ui.frame_msg.setToolTip(self.ln["frame_msg"][self.cln])
-            self.ui.tab_Analyz.setToolTip(self.ln["tab_Analyz_ttp"][self.cln])
-            self.ui.btn_close.setToolTip(self.ln["btn_close"][self.cln])
-            self.ui.btn_min.setToolTip(self.ln["btn_min"][self.cln])
-            self.ui.btn_maxmin.setToolTip(self.ln["btn_maxmin"][self.cln])
-            self.ui.label.setText(self.ln["label"][self.cln])
-            self.ui.textMSG.setToolTip(self.ln["textMSG"][self.cln])
-            self.ui.label_2.setText(self.ln["label_2"][self.cln])
-            self.ui.label_3.setText(self.ln["label_3"][self.cln])
-            self.ui.sleepMax.setToolTip(self.ln["sleepMax"][self.cln])
-            self.ui.sleepMin.setToolTip(self.ln["sleepMin"][self.cln])
-            self.ui.label_11.setText(self.ln["label_11"][self.cln])
-            self.ui.label_10.setText(self.ln["label_10"][self.cln])
-            self.ui.sleepMax_I.setToolTip(self.ln["sleepMax"][self.cln])
-            self.ui.sleepMin_I.setToolTip(self.ln["sleepMin"][self.cln])
-            self.ui.label_caption.setText(self.ln["label_caption"][self.cln])
-            self.ui.caption.setToolTip(self.ln["caption_ttp"][self.cln])
-            self.ui.btn_img.setText(self.ln["btn_img"][self.cln])
-            self.ui.btn_img.setToolTip(self.ln["btn_img_ttp"][self.cln])
-            self.ui.tab_msg.setToolTip(self.ln["tab_msg"][self.cln])
-            self.ui.tab_img.setToolTip(self.ln["tab_img"][self.cln])
-            self.ui.areaCode.setToolTip(self.ln["areaCode"][self.cln])
-            self.ui.areaCode.setPlaceholderText(self.ln["areacode_hldr"][self.cln])
-            self.ui.langs.setToolTip(self.ln["langs"][self.cln])
-        except:
-            log.exception("")
-        try:
-            self.fia.btn_importaccount.setText(self.ln["fia_btn_importaccount"][self.cln])
-            self.fia.btn_importaccount.setToolTip(self.ln["fia_btn_importaccount_ttp"][self.cln])
-            self.fia.btn_addnewtel.setPlaceholderText(self.ln["fia_btn_addnewtel_phdr"][self.cln])
-            self.fia.label_2.setText(self.ln["fia_label_2"][self.cln])
-            self.fia.btn_import_cancel.setText(self.ln["btn_cancel"][self.cln])
-            self.fia.btn_import_cancel.setToolTip(self.ln["fia_btn_import_cancel_ttp"][self.cln])
-        except:
-            log.exception("")
-        try:
-            self.fi.label.setText(self.ln["fi_label"][self.cln])
-            self.fi.btn_importFile.setText(self.ln["fi_btn_importFile"][self.cln])
-            self.fi.btn_importFile.setToolTip(self.ln["fi_btn_importFile_ttp"][self.cln])
-            self.fi.label_2.setText(self.ln["fi_label_2"][self.cln])
-            self.fi.btn_importManual.setText(self.ln["fi_btn_importManual"][self.cln])
-            self.fi.btn_importManual.setToolTip(self.ln["fi_btn_import_cancel_ttp"][self.cln])
-            self.fi.btn_import_cancel.setText(self.ln["btn_cancel"][self.cln])
-            self.fi.btn_import_cancel.setToolTip(self.ln["fi_btn_import_cancel_ttp"][self.cln])
-            self.fi.manualNumber.setToolTip(self.ln["fi_manualNumber_ttp"][self.cln])
-        except:
-            log.exception("")
-        try:
-            self.frOM.label.setText(self.ln["frm_label"][self.cln])
-            self.frOM.label_2.setText(self.ln["frm_label_2"][self.cln])
-            self.frOM.generate_num.setToolTip(self.ln["frm_generate_num"][self.cln])
-            self.frOM.generate_count.setToolTip(self.ln["frm_generate_count"][self.cln])
-            self.frOM.btn_g_ok.setText(self.ln["frm_btn_g_ok"][self.cln])
-            self.frOM.btn_g_ok.setToolTip(self.ln["frm_btn_g_ok_ttp"][self.cln])
-            self.frOM.btn_g_cancel.setText(self.ln["btn_cancel"][self.cln])
-            self.frOM.btn_g_cancel.setToolTip(self.ln["frm_btn_g_cancel_ttp"][self.cln])
-        except:
-            log.exception("")
-        # try:
-        #     self.ui.retranslateUi(MainWindow=self.MainWindow)
-        # except:
-        #     log.exception("")
-        # try:
-        #     self.fia.retranslateUi(self.formQImport)
-        # except:
-        #     log.exception("")
-        # try:
-        #     self.fi.retranslateUi(self.formQImport1)
-        # except:
-        #     log.exception("")
-        # try:
-        #     self.frOM.retranslateUi(self.generateForm)
-        # except:
-        #     log.exception("")
+        self.language = self.ui.lang.currentText()
+        if self.language == 'EN':
+            try:
+                self.ui.btn_import.setText('Load')
+                self.ui.btn_import.setToolTip('Loading numbered lists')
+                self.ui.btn_gnarate.setText('Generator')
+                self.ui.btn_gnarate.setToolTip('Created from a number range')
+                self.ui.btn_export.setText('Export')
+                self.ui.btn_export.setToolTip('Get output from program results')
+                self.ui.btn_clear.setText('Clear')
+                self.ui.btn_clear.setToolTip('Clear the list of numbers')
+                self.ui.btn_acclist.setText('Accounts List')
+                self.ui.btn_start.setText('Start')
+                self.ui.btn_stop.setText('Stop')
+                self.ui.whatsAppNumbers.setText('Numbers List')
+                self.ui.label_count_txt.setText('Total')
+                self.ui.label_count_txt_3.setText('Reviewed')
+                self.ui.label_count_txt_4.setText('Successful')
+                self.ui.label_count_txt_5.setText('Unsuccessful')
+                self.ui.start_tab.setTabText(self.ui.start_tab.indexOf(self.ui.tab_Analyz), 'Number analysis')
+                self.ui.textBrowser.setText(
+                    'You can use the number analysis feature to check your list of numbers to identify numbers that have WhatsApp accounts.')
+                self.ui.start_tab.setTabText(self.ui.start_tab.indexOf(self.ui.tab_msg), 'Text Message')
+                self.ui.start_tab.setTabText(self.ui.start_tab.indexOf(self.ui.tab_img), 'Image')
+                self.ui.frame_LCD_label.setToolTip('Instant app review statistics')
+                self.ui.frame_LCD.setToolTip('Instant app review statistics')
+                self.ui.LogBox.setToolTip('Program activity report')
+                self.ui.btn_start.setToolTip('Start the program')
+                self.ui.btn_stop.setToolTip('Stop the program')
+                self.ui.frame_msg.setToolTip('List of numbers that are checked in the program')
+                self.ui.tab_Analyz.setToolTip('Number list analysis')
+                self.ui.btn_close.setToolTip('Close the app')
+                self.ui.btn_min.setToolTip('to make it least')
+                self.ui.btn_maxmin.setToolTip('Application window mode')
+                self.ui.label.setText('Text message')
+                self.ui.textMSG.setToolTip('The text of your message to send')
+                self.ui.label_2.setText('Interrupt time of each post between ')
+                self.ui.label_3.setText('&')
+                self.ui.label_4.setText('Seconds are set')
+                self.ui.sleepMax.setToolTip('Most downtime')
+                self.ui.sleepMin.setToolTip('Shortest downtime')
+                self.ui.label_11.setText('Interrupt time of each post between ')
+                self.ui.label_10.setText('&')
+                self.ui.label_12.setText('Seconds are set')
+                self.ui.sleepMax_I.setToolTip('Seconds are set')
+                self.ui.sleepMin_I.setToolTip('Shortest downtime')
+                self.ui.label_caption.setText('Enter your caption if needed:')
+                self.ui.caption.setToolTip('Caption of your desired image')
+                self.ui.btn_img.setText('Select image')
+                self.ui.btn_img.setToolTip('Select an image to send')
+                self.ui.tab_msg.setToolTip('Send text message')
+                self.ui.tab_img.setToolTip('Send image')
+                self.ui.areaCode.setToolTip('Your Country Area Code')
+                self.ui.lang.setToolTip('Set the program language')
+                self.fia.btn_importaccount.setToolTip('Select number to load')
+                self.fia.btn_import_cancel.setToolTip(
+                    'Cancelation of Number loading operations')
+            except:
+                pass
+            try:
+                self.fia.btn_addnewtel.setPlaceholderText('New Account Number')
+                self.fia.btn_importaccount.setText('Add new account')
+                self.fia.label_2.setText('List of saved accounts:')
+                self.fia.btn_import_cancel.setText('Cancel')
+            except:
+                pass
+            try:
+                self.fi.label.setText('Upload phone number from file:')
+                self.fi.btn_importFile.setText('Seect File')
+                self.fi.btn_importFile.setToolTip('Select file to Loading')
+                self.fi.label_2.setText('Manually enter phone number:')
+                self.fi.btn_importManual.setText('loading')
+                self.fi.btn_importManual.setToolTip('Loading entered numbers')
+                self.fi.btn_import_cancel.setText('Cancel')
+                self.fi.btn_import_cancel.setToolTip('Cancel number loading operation')
+                self.fi.manualNumber.setToolTip('Enter your phone numbers and separate them with a line break (Enter)')
+            except:
+                pass
+            try:
+                self.frOM.label.setText('First issue:')
+                self.frOM.label_2.setText('Number of creations:')
+                self.frOM.generate_num.setToolTip('Enter your first desired number without 0')
+                self.frOM.generate_count.setToolTip('Enter the number you want to create the list of numbers')
+                font = QFont()
+                font.setFamily("Arial")
+                font.setPointSize(14)
+                font.setBold(False)
+                font.setItalic(False)
+                font.setWeight(50)
+                self.frOM.generate_num.setFont(font)
+                self.frOM.generate_count.setFont(font)
+                self.frOM.btn_g_ok.setText('Confirmation')
+                self.frOM.btn_g_ok.setToolTip('Create list')
+                self.frOM.btn_g_cancel.setText('Cancel')
+                self.frOM.btn_g_cancel.setToolTip('Cancel operations')
+            except:
+                pass
+        else:
+            try:
+                self.ui.retranslateUi(MainWindow=self.MainWindow)
+            except:
+                pass
+            try:
+                self.fia.retranslateUi(self.formQImport)
+            except:
+                pass
+            try:
+                self.fi.retranslateUi(self.formQImport1)
+            except:
+                pass
+            try:
+                self.frOM.retranslateUi(self.generateForm)
+            except:
+                pass
 
     def userChck(self):
         try:
             self.userStatus = NetWork(step=2, user=self.__LICENS__)
             self.userStatus.start()
             self.userStatus.Checker.connect(self.userChecker)
-        except:
-            log.exception("usr check")
+        except Exception as e:
+            print(e)
 
     def checkVer(self, value):
         try:
@@ -236,7 +220,7 @@ class Main():
                 ver = value[0]
                 link = value[1]
                 self.msgError(
-                    f"""<html><head/><body><p align="center">نسخه جدید ({ver}) برنامه در دسترس است</p><p align="center">لطفا آن را <a href="{link}"><span style=" text-decoration: underline; color:#0000ff;">دانلود</span></a> و نصب کنید</p></body></html>""",
+                    f"""<html><head/><body><p align="center">Uma nova versão ({ver}) do programa está disponível</p><p align="center">Por favor, faça o <a href="{link}"><span style=" text-decoration: underline; color:#0000ff;">download</span></a> e instale</p></body></html>""",
                     colorf="#034a0d")
         except:
             pass
@@ -251,7 +235,7 @@ class Main():
 
     def showNumberList(self, commandSQL, focus=0):
         try:
-            # QApplication.processEvents()
+            QApplication.processEvents()
             global db
             db = QSqlDatabase.addDatabase("QSQLITE")
             db.setDatabaseName(self.dbPath)
@@ -259,9 +243,14 @@ class Main():
             # projectModel = QSqlQueryModel()
             self.projectModel = ColorfullSqlQueryModel()
             self.projectModel.setQuery(commandSQL, db)
-            tel = self.ln["tb_header_tel"][self.cln]
-            st = self.ln["tb_header_st"][self.cln]
-            ress = self.ln["tb_header_ress"][self.cln]
+            if self.language == 'EN':
+                tel = 'Number'
+                st = 'Status'
+                ress = 'Result'
+            else:
+                tel = 'Numero'
+                st = 'Status'
+                ress = 'Resultado'
             self.projectModel.setHeaderData(0, Qt.Horizontal, tel)
             self.projectModel.setHeaderData(1, Qt.Horizontal, st)
             self.projectModel.setHeaderData(2, Qt.Horizontal, ress)
@@ -282,14 +271,14 @@ class Main():
                 if (self.index.isValid()):
                     self.ui.tableview_numbers.scrollTo(self.index)
                     self.ui.tableview_numbers.selectRow(focus)
-                    log.debug("scroll")
-            # QApplication.processEvents()
+                    print("scroll")
+            QApplication.processEvents()
         except Exception as e:
             if hasattr(e, 'message'):
-                log.exception(f"{e.message}")
+                print(e.message)
                 errormsg = e.message
             else:
-                log.debug(e)
+                print(e)
                 errormsg = e
             self.msgError(infor=errormsg)
 
@@ -365,11 +354,11 @@ class Main():
                 global TableNow
                 try:
                     with sqlite3.connect(f"{self.dbPath}") as dbi:
-                        log.debug("Connected to Database")
+                        print("Connected to Database")
                         TableNow = self.Time()
                         table = f"CREATE TABLE IF NOT EXISTS `{TableNow}` (num INT PRIMARY KEY NOT NULL, status VARCHAR(50), res VARCHAR(12))"
                         dbi.execute(table)
-                        log.debug("Table OK")
+                        print("Table OK")
                         i = 1
                         for num in NUMBERS:
                             insert = f"INSERT INTO `{TableNow}` (num,status) VALUES ('{num}','')"
@@ -380,18 +369,18 @@ class Main():
                     try:
                         db.close()
                     except:
-                        log.debug("error db")
+                        print("error db")
                     try:
                         dbi.close()
                     except:
-                        log.debug("error dbi", exc_info=True)
+                        print("error dbi")
                     os.remove(self.dbPath)
                     with sqlite3.connect(f"{self.dbPath}") as dbi:
-                        log.debug("Connected to Database")
+                        print("Connected to Database")
                         TableNow = self.Time()
                         table = f"CREATE TABLE IF NOT EXISTS `{TableNow}` (num INT PRIMARY KEY NOT NULL, status VARCHAR(50), res VARCHAR(12))"
                         dbi.execute(table)
-                        log.debug("Table OK")
+                        print("Table OK")
                         i = 1
                         for num in NUMBERS:
                             insert = f"INSERT INTO `{TableNow}` (num,status) VALUES ('{num}','')"
@@ -403,29 +392,37 @@ class Main():
                 self.showNumberList(commandSQL=f"select * from `{TableNow}`")
                 self.ui.btn_clear.setEnabled(True)
             except:
-                self.msgError(self.ln["listloader_err"][self.cln])
+                if self.language == 'EN':
+                    msg = "Error loading numbers! \nTry again"
+                else:
+                    msg = "Erro ao carregar os números! \nTente novamente"
+                self.msgError(msg)
             try:
                 dbi.close()
             except:
                 pass
         else:
-            log.debug("Not Selected File!")
+            print("Not Selected File!")
             pass
 
-    def msgError(self, errorText='مشکلی پیش آمده است !!!', icon='', colorf="#ff0000"):
+    def msgError(self, errorText='Há um problema !!!', icon='', colorf="#ff0000"):
         box = QMessageBox()
         if icon == '':
             box.setIcon(QMessageBox.Warning)
         else:
             box.setIcon(QMessageBox.Information)
-        box.setWindowTitle('ارور')
+        box.setWindowTitle('Erro')
         icon = QIcon()
         icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
         box.setWindowIcon(icon)
         box.setText(errorText)
         box.setStandardButtons(QMessageBox.Yes)
         buttonY = box.button(QMessageBox.Yes)
-        buttonY.setText(self.ln["msgerr_ok"][self.cln])
+        if self.language == 'EN':
+            tx = "       OK       "
+        else:
+            tx = "       OK       "
+        buttonY.setText(tx)
         box.setStyleSheet("""QMessageBox{\n
                           background-color:    #d9c9a3    ;\n
                           border: 3px solid   #ff0000  ;\n
@@ -433,12 +430,12 @@ class Main():
                           }\n
                           QLabel{\n
                           color:   %s  ;\n
-                          font: 12pt \"Arial\";\n
+                          font: 13pt \"Arial\";\n
                           font-weight: bold;\n
                           border:no;\n
                           }\n
                           \n
-                          QPushButton:hover:!pressed\n
+                          QPushButton:hover:!pressed\
                           {\n
                             border: 2px dashed rgb(255, 85, 255);\n
                               background-color:  #e4e7bb ;\n
@@ -474,7 +471,7 @@ class Main():
             self.ui.LogBox.moveCursor(QTextCursor.End)
 
     def waINS(self, number):
-        log.debug(number)
+        print(number)
         if db.open():
             query = QSqlQuery()
             if self.ui.start_tab.currentIndex() == 0:
@@ -485,10 +482,10 @@ class Main():
                 query.exec_(f"update `{TableNow}` set status = '✓✓✓', res = '☑' where num = '{number}'")
             self.showNumberList(commandSQL=f"select * from `{TableNow}`", focus=self.reviewedCount)
         else:
-            log.debug("wa Db Not Open")
+            print("wa Db Not Open")
 
     def nwaINS(self, number):
-        log.debug(number)
+        print(number)
         if db.open():
             query = QSqlQuery()
             if self.ui.start_tab.currentIndex() == 0:
@@ -499,7 +496,7 @@ class Main():
                 query.exec_(f"update `{TableNow}` set status = '✓✓✓', res = '☒' where num = '{number}'")
             self.showNumberList(commandSQL=f"select * from `{TableNow}`", focus=self.reviewedCount)
         else:
-            log.debug("nwa Db Not Open")
+            print("nwa Db Not Open")
 
     def EndWork(self, msg=''):
         if not self.stopProgress:
@@ -514,15 +511,15 @@ class Main():
                 self.ui.LogBox.appendPlainText(msg)
             except Exception as e:
                 if hasattr(e, 'message'):
-                    log.exception(f"{e.message}")
+                    print(e.message)
                     errormsg = e.message
                 else:
-                    log.debug(e)
+                    print(e)
                     errormsg = e
                 self.msgError(f"{errormsg}")
 
     def stop_progress(self):
-        log.debug("stop")
+        print("stop")
         self.EndWork()
         self.stopProgress = True
         entText = "-- Stop running --"
@@ -536,10 +533,10 @@ class Main():
                 self.ImgThread.stop()
         except Exception as e:
             if hasattr(e, 'message'):
-                log.debug(e.message)
+                print(e.message)
                 errormsg = e.message
             else:
-                log.debug(e)
+                print(e)
                 errormsg = e
             self.msgError(f"{errormsg}")
 
@@ -547,7 +544,7 @@ class Main():
         try:
             if db.open():
                 # QApplication.processEvents()
-                log.debug("Analyz OK")
+                print("Analyz OK")
                 query = QSqlQuery()
                 query.exec_(f"select * from `{TableNow}` where status = ''")
                 numList = []
@@ -566,10 +563,14 @@ class Main():
                 self.stopProgress = False
         except Exception as e:
             if hasattr(e, 'message'):
-                log.exception(e.message)
+                print(e.message)
             else:
-                log.debug(e)
-            self.msgError(self.ln["analyz_err"][self.cln])
+                print(e)
+            if self.language == 'EN':
+                msg = "Error in number analysis"
+            else:
+                msg = "Erro na análise de números"
+            self.msgError(msg)
 
     def sendMsg(self, text):
         try:
@@ -604,10 +605,14 @@ class Main():
                 self.stopProgress = False
         except Exception as e:
             if hasattr(e, 'message'):
-                log.exception(e.message)
+                print(e.message)
             else:
-                log.debug(e)
-            self.msgError(self.ln["msg_err"][self.cln])
+                print(e)
+            if self.language == 'EN':
+                msg = "Error sending text message!"
+            else:
+                msg = "Erro ao enviar mensagem de texto!"
+            self.msgError(msg)
 
     def sendImg(self, path, caption=''):
         try:
@@ -642,10 +647,14 @@ class Main():
                 self.stopProgress = False
         except Exception as e:
             if hasattr(e, 'message'):
-                log.exception(e.message)
+                print(e.message)
             else:
-                log.debug(e)
-            self.msgError(self.ln["img_err"][self.cln])
+                print(e)
+            if self.language == 'EN':
+                msg = "Error sending image!"
+            else:
+                msg = "Erro ao enviar imagem!"
+            self.msgError(msg)
 
     def btnStatus(self, status='l'):
         '''
@@ -664,8 +673,8 @@ class Main():
             self.ui.start_tab.setEnabled(False)
 
     def userChecker(self, value):
-        # self.User = value
-        self.User = True
+        print(f"user {value}")
+        self.User = value
         return self.User
 
     def qthreadInsert(self, value):
@@ -679,62 +688,91 @@ class Main():
             self.userChck()
         except:
             pass
+        # self.RememberLogin = self.ui.RememberLoginStatus.isChecked()
         self.RememberLogin = True
-
-        log.info("Start")
+        self.RememberLogin = True
+        print("Start")
         Net = self.ConnectionCheck()
         try:
-            log.debug(Net, self.User)
+            print(Net, self.User)
             if db.open():
                 if Net:
-                    if self.User:
-                        currentIndex = self.ui.start_tab.currentIndex()
-                        if currentIndex == 0:
-                            self.btnStatus()
-                            self.ui.LogBox.appendPlainText(f"-- Start analysis --")
-                            self.AnalyzNum()
-                        elif currentIndex == 1:
-                            log.debug("message Tab")
-                            text = self.ui.textMSG.toPlainText()
-                            log.debug(text)
-                            if text != '':
+                    if self.ui.areaCode.text() != '':
+                        if self.User:
+                            currentIndex = self.ui.start_tab.currentIndex()
+                            if currentIndex == 0:
                                 self.btnStatus()
-                                self.ui.LogBox.appendPlainText(f"-- Start Send Message --")
-                                self.sendMsg(text)
+                                self.ui.LogBox.appendPlainText(f"-- Start analysis --")
+                                self.AnalyzNum()
+                            elif currentIndex == 1:
+                                print("message Tab")
+                                text = self.ui.textMSG.toPlainText()
+                                print(text)
+                                if text != '':
+                                    self.btnStatus()
+                                    self.ui.LogBox.appendPlainText(f"-- Start Send Message --")
+                                    self.sendMsg(text)
+                                else:
+                                    if self.language == 'EN':
+                                        msg = "Enter the text of your message first"
+                                    else:
+                                        msg = "Digite o texto da sua mensagem primeiro"
+                                    self.msgError(msg)
+                            elif currentIndex == 2:
+                                print('image tab')
+                                if self.p != '':
+                                    caption = self.ui.caption.toPlainText()
+                                    self.ui.LogBox.appendPlainText(f"-- Start Send Image --")
+                                    self.sendImg(path=self.p, caption=caption)
+                                    self.btnStatus()
+                                else:
+                                    if self.language == 'EN':
+                                        msg = "First select your image to send"
+                                    else:
+                                        msg = "Primeiro selecione sua imagem para enviar"
+                                    self.msgError(msg)
                             else:
-                                self.msgError(self.ln["inputxt_err"][self.cln])
-                        elif currentIndex == 2:
-                            log.debug('image tab')
-                            if self.p != '':
-                                caption = self.ui.caption.toPlainText()
-                                self.ui.LogBox.appendPlainText(f"-- Start Send Image --")
-                                self.sendImg(path=self.p, caption=caption)
-                                self.btnStatus()
-                            else:
-                                self.msgError(self.ln["inputimg_err"][self.cln])
-                        else:
-                            self.msgError()
-                        if not self.RememberLogin:
-                            lisT = os.listdir('temp')
-                            import shutil
-                            for f in lisT:
-                                try:
-                                    if f == 'temporary.data':
-                                        continue
-                                    os.remove(f"temp/{f}")
-                                except:
+                                self.msgError()
+                            if not self.RememberLogin:
+                                lisT = os.listdir('temp')
+                                import shutil
+                                for f in lisT:
                                     try:
-                                        os.rmdir(f"temp/{f}")
+                                        if f == 'temporary.data':
+                                            continue
+                                        os.remove(f"temp/{f}")
                                     except:
-                                        shutil.rmtree(f"temp/{f}")
+                                        try:
+                                            os.rmdir(f"temp/{f}")
+                                        except:
+                                            shutil.rmtree(f"temp/{f}")
+                                            continue
                                         continue
-                                    continue
+                        else:
+                            if self.language == 'EN':
+                                msg = "You do not have permission to use the app!"
+                            else:
+                                msg = "Você não tem permissão para usar o aplicativo"
+                            self.msgError(msg, colorf='#1b6900')
                     else:
-                        self.msgError(self.ln["per_err"][self.cln], colorf='#1b6900')
+                        if self.language == 'EN':
+                            msg = "Please enter your country code"
+                        else:
+                            msg = "Por favor insira o código do seu país"
+                            msg = "Por favor insira o código do seu país"
+                        self.msgError(msg, colorf=' #ff3a0f ')
                 else:
-                    self.msgError(self.ln["net_err"][self.cln])
+                    if self.language == 'EN':
+                        msg = "You are not connected to the Internet! \nMake sure you are connected to the Internet."
+                    else:
+                        msg = "Você não está conectado à Internet! \nCertifique-se de estar conectado à Internet."
+                    self.msgError(msg)
         except:
-            self.msgError(self.ln["ldlist_err"][self.cln])
+            if self.language == 'EN':
+                msg = "First, load your list of numbers."
+            else:
+                msg = "Primeiro, carregue sua lista de números."
+            self.msgError(msg)
 
     def export(self):
         try:
@@ -764,40 +802,52 @@ class Main():
                                                 lineterminator='\n')
                             writer.writerow([f"{number}"])
                             # cSv.write(f"{number}\n")
-                self.msgError(errorText=self.ln["export_sucs"][self.cln], icon='Information', colorf="#214917")
+                if self.language == 'EN':
+                    msg = "Data extraction was successful."
+                else:
+                    msg = "A extração de dados foi bem-sucedida."
+                self.msgError(errorText=msg, icon='Information', colorf="#214917")
         except Exception as e:
             if hasattr(e, 'message'):
-                log.exception(e.message)
+                print(e.message)
                 errormsg = e.message
             else:
-                log.debug(e)
+                print(e)
                 errormsg = e
-            self.msgError(self.ln["export_err"][self.cln])
-
-    def initGenerate(self):
-        log.debug("init Generate")
-        from generate import Ui_Form
-        self.frOM = Ui_Form()
-        self.generateForm = QDialog()
-        self.generateForm.setModal(True)
-        self.generateForm.setWindowFlags(self.generateForm.windowFlags() | Qt.FramelessWindowHint)
-        self.generateForm.setAttribute(Qt.WA_TranslucentBackground)
-        icon = QIcon()
-        icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
-        self.generateForm.setWindowIcon(icon)
-        self.frOM.setupUi(self.generateForm)
-        self.frOM.generate_num.setValidator(self.validator)
-        self.frOM.generate_num.setMaxLength(10)
-        self.frOM.generate_count.setValidator(self.validator)
-        self.frOM.generate_count.setMaxLength(5)
-        self.frOM.btn_g_ok.setFocus()
-        self.frOM.btn_g_cancel.clicked.connect(self.generateForm.close)
-        self.frOM.btn_g_ok.clicked.connect(self.importGenerate)
+            if self.language == 'EN':
+                msg = "Could not find item to extract from list."
+            else:
+                msg = "Não foi possível encontrar o item para extrair da lista.د"
+            self.msgError(msg)
 
     def generate(self):
-        log.debug("btn generate")
-        self.languageSet()
-        self.generateForm.show()
+        if self.ui.areaCode.text() != '':
+            print("generate")
+            from generate import Ui_Form
+            self.frOM = Ui_Form()
+            self.generateForm = QDialog()
+            self.generateForm.setModal(True)
+            self.generateForm.setWindowFlags(self.generateForm.windowFlags() | Qt.FramelessWindowHint)
+            self.generateForm.setAttribute(Qt.WA_TranslucentBackground)
+            icon = QIcon()
+            icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
+            self.generateForm.setWindowIcon(icon)
+            self.frOM.setupUi(self.generateForm)
+            self.frOM.generate_num.setValidator(self.validator)
+            self.frOM.generate_num.setMaxLength(10)
+            self.frOM.generate_count.setValidator(self.validator)
+            self.frOM.generate_count.setMaxLength(5)
+            self.frOM.btn_g_ok.setFocus()
+            self.languageSet()
+            self.generateForm.show()
+            self.frOM.btn_g_cancel.clicked.connect(self.generateForm.close)
+            self.frOM.btn_g_ok.clicked.connect(self.importGenerate)
+        else:
+            if self.language == 'EN':
+                msg = "Please enter your country code"
+            else:
+                msg = "Por favor insira o código do seu país"
+            self.msgError(msg, colorf=' #ff3a0f ')
 
     def importGenerate(self):
         firstNumber = self.frOM.generate_num.text()
@@ -805,48 +855,66 @@ class Main():
         if RangeNum == '':
             RangeNum = 10
         if firstNumber != '':
-            if not len(firstNumber) < 9:
+            if not len(firstNumber) < 10:
                 path = f"temp\generate-{self.Time()}.csv"
-                log.debug(firstNumber, path)
+                print(firstNumber, path)
                 for i in range(int(RangeNum)):
                     with open(f"{path}", 'a+') as g:
                         writer = csv.writer(g, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL,
                                             lineterminator='\n')
                         writer.writerow([f"{firstNumber}"])
                     firstNumber = int(firstNumber) + 1
-                    # log.debug(firstNumber)
+                    # print(firstNumber)
                 self.generateForm.close()
                 self.ListLoader(path)
-                self.msgError(errorText=self.ln["listcreate_sucs"][self.cln], icon='Information', colorf="#214917")
+                if self.language == 'EN':
+                    msg = "List created successfully."
+                else:
+                    msg = "Lista criada com sucesso.."
+                self.msgError(errorText=msg, icon='Information', colorf="#214917")
                 os.remove(path)
             else:
-                self.msgError(self.ln["num_valid"][self.cln])
+                if self.language == 'EN':
+                    msg = "The first number must be 10 digits"
+                else:
+                    msg = "O primeiro número deve ter 10 dígitos"
+                self.msgError(msg)
         else:
-            self.msgError(self.ln["generate_err"][self.cln])
-
-    def initImport(self):
-        if self.cv == 0:
-            self.cv = 1
-            self.checkVERSION = NetWork(step=1, version=self.__VERSION__)
-            self.checkVERSION.start()
-            self.checkVERSION.cuurentVersion.connect(self.checkVer)
-        from importNumber import Ui_Form
-        self.fi = Ui_Form()
-        self.formQImport1 = QDialog()
-        self.formQImport1.setModal(True)
-        self.formQImport1.setWindowFlags(self.formQImport1.windowFlags() | Qt.FramelessWindowHint)
-        self.formQImport1.setAttribute(Qt.WA_TranslucentBackground)
-        self.fi.setupUi(self.formQImport1)
-        icon = QIcon()
-        icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
-        self.formQImport1.setWindowIcon(icon)
-        self.fi.btn_import_cancel.clicked.connect(self.formQImport1.close)
-        self.fi.btn_importFile.clicked.connect(self.btn_import)
-        self.fi.btn_importManual.clicked.connect(self.importManual)
+            if self.language == 'EN':
+                msg = "You must enter the first number you want."
+            else:
+                msg = "Você deve inserir o primeiro número que deseja."
+            self.msgError(msg)
 
     def importer(self):
-        self.languageSet()
-        self.formQImport1.show()
+        if self.ui.areaCode.text() != '':
+            print("import")
+            if self.cv == 0:
+                self.cv = 1
+                self.checkVERSION = NetWork(step=1, version=self.__VERSION__)
+                self.checkVERSION.start()
+                self.checkVERSION.cuurentVersion.connect(self.checkVer)
+            from importNumber import Ui_Form
+            self.fi = Ui_Form()
+            self.formQImport1 = QDialog()
+            self.formQImport1.setModal(True)
+            self.formQImport1.setWindowFlags(self.formQImport1.windowFlags() | Qt.FramelessWindowHint)
+            self.formQImport1.setAttribute(Qt.WA_TranslucentBackground)
+            self.fi.setupUi(self.formQImport1)
+            icon = QIcon()
+            icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
+            self.formQImport1.setWindowIcon(icon)
+            self.fi.btn_import_cancel.clicked.connect(self.formQImport1.close)
+            self.fi.btn_importFile.clicked.connect(self.btn_import)
+            self.fi.btn_importManual.clicked.connect(self.importManual)
+            self.languageSet()
+            self.formQImport1.show()
+        else:
+            if self.language == 'EN':
+                msg = "Please enter your country code"
+            else:
+                msg = "Por favor insira o código do seu país"
+            self.msgError(msg, colorf=' #ff3a0f ')
 
     def btn_import(self):
         options = QFileDialog.Options()
@@ -866,7 +934,7 @@ class Main():
             try:
                 numLine = nums.split('\n')
                 numLine = set(numLine)
-                log.debug(numLine)
+                print(numLine)
                 path = f"temp\manualNumber-{self.Time()}.csv"
                 for num in numLine:
                     if num == '':
@@ -878,14 +946,29 @@ class Main():
                         writer.writerow([f"{num}"])
                 self.formQImport1.close()
                 self.ListLoader(path)
-                self.msgError(errorText=self.ln["load_sucs"][self.cln], icon='Information', colorf="#214917")
+                if self.language == 'EN':
+                    msg = "List loaded successfully."
+                else:
+                    msg = "Lista carregada com sucesso."
+                self.msgError(errorText=msg, icon='Information', colorf="#214917")
                 os.remove(path)
             except:
-                self.msgError(self.ln["num_load_err"][self.cln])
+                if self.language == 'EN':
+                    msg = "Error entering phone number! \nPlease make sure the numbers are entered correctly."
+                else:
+                    msg = 'Erro ao digitar o número de telefone! \nCertifique-se de que os números foram digitados corretamente.'
+                self.msgError(msg)
         else:
-            self.msgError(self.ln["slctnums_err"][self.cln])
+            if self.language == 'EN':
+                msg = "You must select the desired phone number, or enter it manually."
+            else:
+                msg = 'Você deve selecionar o número de telefone desejado ou inseri-lo manualmente.'
+            self.msgError(msg)
 
-    def initAccountList(self):
+    def accountsList(self):
+        '''
+        Qwidget accounst list show
+        '''
         from accuonts import Ui_Form
         self.fia = Ui_Form()
         self.formQImport = QDialog()
@@ -897,22 +980,18 @@ class Main():
         icon.addPixmap(QPixmap(":/main/icon.ico"), QIcon.Normal, QIcon.Off)
         self.formQImport.setWindowIcon(icon)
         self.fia.btn_import_cancel.clicked.connect(self.formQImport.close)
+        self.fia.btn_importaccount.clicked.connect(self.addAccounts)
         try:
             if not os.path.exists('./temp/cache'):
                 os.makedirs('temp/cache/')
         except:
             os.makedirs('./temp/cache/')
         cacheList = os.listdir('temp/cache/')
-        log.debug(cacheList)
+        print(cacheList)
         self.modelAcc = TableModel(cacheList)
         self.fia.accountsTable.setModel(self.modelAcc)
         # self.rowCount = self.modelAcc.rowCount()
-        # self.fia.btn_importaccount.clicked.connect(self.addAccounts)
-        # self.fia.btn_importaccount.setEnabled(False)
-        self.fia.btn_importaccount.clicked.connect(lambda: self.msgError(
-            errorText=self.ln["undefine_feature"][self.cln], icon="", colorf="#0013ff"))
-
-    def accountsList(self):
+        self.fia.btn_importaccount.setEnabled(False)
         self.languageSet()
         self.formQImport.show()
 
@@ -925,11 +1004,15 @@ class Main():
             self.addAccount = Web(step='Add', path=newaccountName, Remember=True)
             self.addAccount.start()
         else:
-            self.msgError(self.ln["acc_num"][self.cln])
+            if self.language == 'EN':
+                msg = "Please enter your new account number to save."
+            else:
+                msg = "Digite seu novo número de conta para salvar."
+            self.msgError(msg)
 
     def clearList(self):
         try:
-            log.debug("table reset")
+            print("table reset")
             self.projectModel.deleteLater()
         except:
             pass
@@ -942,7 +1025,7 @@ class Main():
         self.p = img_path
         try:
             if img_path:
-                log.debug(img_path)
+                print(img_path)
                 imgName = img_path.split('/')[-1]
                 img = QPixmap(img_path)
                 img1 = img.scaled(120, 120, Qt.KeepAspectRatio)
@@ -957,11 +1040,11 @@ class Main():
             req.raise_for_status()
             return True
         except requests.HTTPError as e:
-            log.debug("Checking internet connection failed, status code {0}.".format(
-                e.response.status_code), exc_info=True)
+            print("Checking internet connection failed, status code {0}.".format(
+                e.response.status_code))
             return False
         except requests.ConnectionError:
-            log.debug("No internet connection available." , exc_info=True)
+            print("No internet connection available.")
             return False
 
 
@@ -1052,6 +1135,7 @@ class NetWork(QThread):
         return timeZ
 
     def STATUS(self, user=None, pw=0):
+        print('check user')
         self.Checker.emit(True)
         return ''
 
@@ -1068,7 +1152,7 @@ class NetWork(QThread):
             self.STATUS(user=self.user, pw=self.pw)
 
     def stop(self):
-        log.debug('terminate thread')
+        print('terminate thread')
         self.terminate()
 
 
