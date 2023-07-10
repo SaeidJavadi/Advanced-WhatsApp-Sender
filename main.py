@@ -18,6 +18,7 @@ import icons_rc
 from browserCtrl import Web
 
 
+
 class Main():
 
     def __init__(self):

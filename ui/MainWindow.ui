@@ -1668,7 +1668,7 @@ border-radius: 5px;
 </string>
          </property>
          <property name="text">
-          <string>Advanced WhatsApp</string>
+          <string>WhatsBotPy</string>
          </property>
         </widget>
        </item>
@@ -1687,7 +1687,7 @@ border-radius: 5px;
           </size>
          </property>
          <property name="toolTip">
-          <string>پیش شماره کد کشور شما</string>
+          <string>WhatsBotPy</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit{

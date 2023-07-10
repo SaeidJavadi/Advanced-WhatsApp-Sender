@@ -929,7 +929,7 @@ class Ui_MainWindow(object):
             self.lang.setItemText(1, _translate("MainWindow", "PT"))  # luiz#
             self.btn_min.setToolTip(_translate("MainWindow", "Minimizar"))
             self.btn_min.setText(_translate("MainWindow", "-"))
-            self.label_appName.setText(_translate("MainWindow", "Advanced WhatsApp"))
+            self.label_appName.setText(_translate("MainWindow", "WhatsBotPy"))
             self.areaCode.setToolTip(_translate("MainWindow", "Código de área do seu país"))
             self.areaCode.setPlaceholderText(_translate("MainWindow", "Código de Área"))
 import icons_rc
