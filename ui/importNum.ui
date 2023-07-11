@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Create Number List Form</string>
+   <string>فرم ایجاد لیست شماره</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel {
@@ -51,21 +51,18 @@ border-color:#a9a9a9;
       </property>
       <item row="0" column="0">
        <widget class="QFrame" name="frame_file">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
         <property name="styleSheet">
          <string notr="true">QFrame {
-background-color: #3b3b3b;
-border-style: solid;
-border-width: 1px;
+	background-color: #3b3b3b;
+    border-style: solid;
+    border-width: 1px;
 border-color:#a9a9a9;
-border-radius: 15px;
-height: 25px;
+   border-radius: 15px;
+   height: 25px;
 }
 QPlainTextEdit {
 	background-color: #c5c5c5;
-	 border-style: no;
+	    border-style: no;
 border-radius:5px;
 }
 QLabel {
@@ -79,6 +76,57 @@ QLabel {
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout">
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="bottomMargin">
+          <number>10</number>
+         </property>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="btn_importFile">
+           <property name="minimumSize">
+            <size>
+             <width>180</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>14</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>انتخاب فایل برای بارگذاری</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton:hover:!pressed
+{
+  border: 2px solid rgb(0, 209, 255);
+	background-color: rgb(129, 125, 255);
+	color: rgb(85, 255, 255);
+}
+QPushButton{
+background-color: rgb(0, 92, 67);
+color: rgb(255, 204, 0);
+border: 1px solid  rgb(234, 0, 255);;
+border-radius: 10px;
+}</string>
+           </property>
+           <property name="text">
+            <string>انتخاب فایل</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="font">
@@ -96,58 +144,7 @@ border-radius:5px;
 }</string>
            </property>
            <property name="text">
-            <string>Loading the phone number from the file</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="btn_importFile">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>14</pointsize>
-             <weight>50</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="toolTip">
-            <string>File Select to load</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton:hover:!pressed
-{
-  border: 2px solid rgb(0, 209, 255);
-	background-color: rgb(129, 125, 255);
-	color: rgb(85, 255, 255);
-}
-QPushButton{
-background-color: rgb(0, 92, 67);
-color: rgb(255, 204, 0);
-border: 1px solid  rgb(234, 0, 255);;
-border-radius: 10px;
-}</string>
-           </property>
-           <property name="text">
-            <string>Select File</string>
+            <string>بارگزاری شماره تلفن از فایل :</string>
            </property>
           </widget>
          </item>
@@ -190,18 +187,12 @@ border-radius:5px;
          <item row="0" column="0" colspan="2">
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Imported manually phone numbers</string>
+            <string>ورود دستی شماره تلفن:</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
           <widget class="QPushButton" name="btn_importManual">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>180</width>
@@ -210,7 +201,7 @@ border-radius:5px;
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
+             <width>180</width>
              <height>16777215</height>
             </size>
            </property>
@@ -221,7 +212,7 @@ border-radius:5px;
             </font>
            </property>
            <property name="toolTip">
-            <string>Loading the numbers entered</string>
+            <string>بارگذاری شماره های وارد شده</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton:hover:!pressed
@@ -238,14 +229,14 @@ border-radius: 10px;
 }</string>
            </property>
            <property name="text">
-            <string>Loading</string>
+            <string>بارگذاری</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0" colspan="3">
           <widget class="QPlainTextEdit" name="manualNumber">
            <property name="toolTip">
-            <string>Enter your phone numbers and separate with the line (ENTER)</string>
+            <string>شماره تلفن ها خود را وارد کنید و با فاصله خطی (Enter) از هم جدا کنید</string>
            </property>
           </widget>
          </item>
@@ -267,7 +258,7 @@ border-radius: 10px;
          </font>
         </property>
         <property name="toolTip">
-         <string>Cancelation of Number Loading Operations</string>
+         <string>لغو عملیات بارگذاری شماره</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton:hover:!pressed
@@ -284,7 +275,7 @@ border-radius: 10px;
 }</string>
         </property>
         <property name="text">
-         <string>Cancel</string>
+         <string>لغو</string>
         </property>
         <property name="autoDefault">
          <bool>true</bool>
@@ -300,6 +291,7 @@ border-radius: 10px;
   </layout>
  </widget>
  <tabstops>
+  <tabstop>btn_importFile</tabstop>
   <tabstop>manualNumber</tabstop>
   <tabstop>btn_importManual</tabstop>
   <tabstop>btn_import_cancel</tabstop>
