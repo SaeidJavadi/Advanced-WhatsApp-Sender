@@ -17,6 +17,8 @@ from selenium.webdriver.common.keys import Keys
 import logging
 import logging.config
 from logging.handlers import SocketHandler
+from selenium.webdriver.chrome.service import Service
+from subprocess import CREATE_NO_WINDOW
 import chromedriver_autoinstaller
 
 
@@ -77,7 +79,8 @@ class Web(QThread):
         self.__browser_options = None
         self.__browser_user_dir = None
         self.__driver = None
-
+        self.service = Service()
+        self.service.creationflags = CREATE_NO_WINDOW
         if browser == 1:
             self.set_browser(CHROME)
         elif browser == 2:
@@ -92,12 +95,12 @@ class Web(QThread):
         try:
             try:
                 self.__driver = webdriver.Chrome(
-                    chrome_options=options, service_args=["hide_console",])
+                    chrome_options=options, service_args=["hide_console",], service=self.service)
                 logr.debug("webDriver")
             except:
                 logr.exception("error remeber")
                 self.__driver = webdriver.Chrome(
-                    service_args=["hide_console", ])
+                    service_args=["hide_console", ], service=self.service)
         except:
             logr.exception("Chrome ->:")
             # if not os.path.exists('temp/F.Options'):
@@ -517,7 +520,7 @@ class Web(QThread):
     def __start_session(self, options, profile_name=None, wait_for_login=True):
         if profile_name is None:
             if self.__browser_choice == CHROME:
-                self.__driver = webdriver.Chrome(options=options)
+                self.__driver = webdriver.Chrome(options=options, service_args=["hide_console", ],service=self.service)
                 self.__driver.set_window_position(0, 0)
                 self.__driver.set_window_size(670, 800)
             elif self.__browser_choice == FIREFOX:
@@ -538,7 +541,7 @@ class Web(QThread):
             if self.__browser_choice == CHROME:
                 options.add_argument(
                     'user-data-dir=%s' % os.path.join(self.__browser_user_dir, profile_name))
-                self.__driver = webdriver.Chrome(options=options)
+                self.__driver = webdriver.Chrome(options=options, service_args=["hide_console", ],service=self.service)
             elif self.__browser_choice == FIREFOX:
                 fire_profile = webdriver.FirefoxProfile(
                     os.path.join(self.__browser_user_dir, profile_name))

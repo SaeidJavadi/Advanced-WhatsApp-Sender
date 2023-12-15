@@ -46,7 +46,7 @@ class Main():
         self.cv = 0
         self.Net = None
         self.User = True
-        log.info(f"===== Program Runing {self.__VERSION__} =====")
+        log.info(fr"===== Program Runing {self.__VERSION__} =====")
         self.insert = NetWork(version=self.__VERSION__)
         self.insert.start()
         # self.insert.Checker.connect(self.qthreadInsert)
@@ -236,7 +236,8 @@ class Main():
                 ver = value[0]
                 link = value[1]
                 self.msgError(
-                    f"""<html><head/><body><p align="center">نسخه جدید ({ver}) برنامه در دسترس است</p><p align="center">لطفا آن را <a href="{link}"><span style=" text-decoration: underline; color:#0000ff;">دانلود</span></a> و نصب کنید</p></body></html>""",
+                    fr"""<html><head/><body><p align="center">نسخه جدید ({ver}) برنامه در دسترس است</p><p align="center">لطفا آن را <a href="{
+                        link}"><span style=" text-decoration: underline; color:#0000ff;">دانلود</span></a> و نصب کنید</p></body></html>""",
                     colorf="#034a0d")
         except:
             pass
@@ -286,7 +287,7 @@ class Main():
             # QApplication.processEvents()
         except Exception as e:
             if hasattr(e, 'message'):
-                log.exception(f"{e.message}")
+                log.exception(fr"{e.message}")
                 errormsg = e.message
             else:
                 log.debug(e)
@@ -364,15 +365,16 @@ class Main():
             try:
                 global TableNow
                 try:
-                    with sqlite3.connect(f"{self.dbPath}") as dbi:
+                    with sqlite3.connect(fr"{self.dbPath}") as dbi:
                         log.debug("Connected to Database")
                         TableNow = self.Time()
-                        table = f"CREATE TABLE IF NOT EXISTS `{TableNow}` (num INT PRIMARY KEY NOT NULL, status VARCHAR(50), res VARCHAR(12))"
+                        table = fr"CREATE TABLE IF NOT EXISTS `{
+                            TableNow}` (num INT PRIMARY KEY NOT NULL, status VARCHAR(50), res VARCHAR(12))"
                         dbi.execute(table)
                         log.debug("Table OK")
                         i = 1
                         for num in NUMBERS:
-                            insert = f"INSERT INTO `{TableNow}` (num,status) VALUES ('{num}','')"
+                            insert = fr"INSERT INTO `{TableNow}` (num,status) VALUES ('{num}','')"
                             dbi.execute(insert)
                             i += 1
                         dbi.commit()
@@ -386,21 +388,22 @@ class Main():
                     except:
                         log.debug("error dbi", exc_info=True)
                     os.remove(self.dbPath)
-                    with sqlite3.connect(f"{self.dbPath}") as dbi:
+                    with sqlite3.connect(fr"{self.dbPath}") as dbi:
                         log.debug("Connected to Database")
                         TableNow = self.Time()
-                        table = f"CREATE TABLE IF NOT EXISTS `{TableNow}` (num INT PRIMARY KEY NOT NULL, status VARCHAR(50), res VARCHAR(12))"
+                        table = fr"CREATE TABLE IF NOT EXISTS `{
+                            TableNow}` (num INT PRIMARY KEY NOT NULL, status VARCHAR(50), res VARCHAR(12))"
                         dbi.execute(table)
                         log.debug("Table OK")
                         i = 1
                         for num in NUMBERS:
-                            insert = f"INSERT INTO `{TableNow}` (num,status) VALUES ('{num}','')"
+                            insert = fr"INSERT INTO `{TableNow}` (num,status) VALUES ('{num}','')"
                             dbi.execute(insert)
                             i += 1
                         dbi.commit()
                 self.ui.LogBox.clear()
                 self.ui.LogBox.appendPlainText("--- Numbers entered successfully ---")
-                self.showNumberList(commandSQL=f"select * from `{TableNow}`")
+                self.showNumberList(commandSQL=fr"select * from `{TableNow}`")
                 self.ui.btn_clear.setEnabled(True)
             except:
                 self.msgError(self.ln["listloader_err"][self.cln])
@@ -478,12 +481,12 @@ class Main():
         if db.open():
             query = QSqlQuery()
             if self.ui.start_tab.currentIndex() == 0:
-                query.exec_(f"update `{TableNow}` set status = '✓', res = '☑' where num = '{number}'")
+                query.exec_(fr"update `{TableNow}` set status = '✓', res = '☑' where num = '{number}'")
             elif self.ui.start_tab.currentIndex() == 1:
-                query.exec_(f"update `{TableNow}` set status = '✓✓', res = '☑' where num = '{number}'")
+                query.exec_(fr"update `{TableNow}` set status = '✓✓', res = '☑' where num = '{number}'")
             elif self.ui.start_tab.currentIndex() == 2:
-                query.exec_(f"update `{TableNow}` set status = '✓✓✓', res = '☑' where num = '{number}'")
-            self.showNumberList(commandSQL=f"select * from `{TableNow}`", focus=self.reviewedCount)
+                query.exec_(fr"update `{TableNow}` set status = '✓✓✓', res = '☑' where num = '{number}'")
+            self.showNumberList(commandSQL=fr"select * from `{TableNow}`", focus=self.reviewedCount)
         else:
             log.debug("wa Db Not Open")
 
@@ -492,12 +495,12 @@ class Main():
         if db.open():
             query = QSqlQuery()
             if self.ui.start_tab.currentIndex() == 0:
-                query.exec_(f"update `{TableNow}` set status = '✓', res = '☒' where num = '{number}'")
+                query.exec_(fr"update `{TableNow}` set status = '✓', res = '☒' where num = '{number}'")
             elif self.ui.start_tab.currentIndex() == 1:
-                query.exec_(f"update `{TableNow}` set status = '✓✓', res = '☒' where num = '{number}'")
+                query.exec_(fr"update `{TableNow}` set status = '✓✓', res = '☒' where num = '{number}'")
             elif self.ui.start_tab.currentIndex() == 2:
-                query.exec_(f"update `{TableNow}` set status = '✓✓✓', res = '☒' where num = '{number}'")
-            self.showNumberList(commandSQL=f"select * from `{TableNow}`", focus=self.reviewedCount)
+                query.exec_(fr"update `{TableNow}` set status = '✓✓✓', res = '☒' where num = '{number}'")
+            self.showNumberList(commandSQL=fr"select * from `{TableNow}`", focus=self.reviewedCount)
         else:
             log.debug("nwa Db Not Open")
 
@@ -514,12 +517,12 @@ class Main():
                 self.ui.LogBox.appendPlainText(msg)
             except Exception as e:
                 if hasattr(e, 'message'):
-                    log.exception(f"{e.message}")
+                    log.exception(fr"{e.message}")
                     errormsg = e.message
                 else:
                     log.debug(e)
                     errormsg = e
-                self.msgError(f"{errormsg}")
+                self.msgError(fr"{errormsg}")
 
     def stop_progress(self):
         log.debug("stop")
@@ -541,7 +544,7 @@ class Main():
             else:
                 log.debug(e)
                 errormsg = e
-            self.msgError(f"{errormsg}")
+            self.msgError(fr"{errormsg}")
 
     def AnalyzNum(self):
         try:
@@ -549,7 +552,7 @@ class Main():
                 # QApplication.processEvents()
                 log.debug("Analyz OK")
                 query = QSqlQuery()
-                query.exec_(f"select * from `{TableNow}` where status = ''")
+                query.exec_(fr"select * from `{TableNow}` where status = ''")
                 numList = []
                 while query.next():
                     num = query.value(0)
@@ -576,7 +579,7 @@ class Main():
             if db.open():
                 # QApplication.processEvents()
                 query = QSqlQuery()
-                query.exec_(f"select * from `{TableNow}` where status = '' or res = '☑'")
+                query.exec_(fr"select * from `{TableNow}` where status = '' or res = '☑'")
                 numList = []
                 while query.next():
                     num = query.value(0)
@@ -614,7 +617,7 @@ class Main():
             if db.open():
                 # QApplication.processEvents()
                 query = QSqlQuery()
-                query.exec_(f"select * from `{TableNow}` where status = '' or res = '☑'")
+                query.exec_(fr"select * from `{TableNow}` where status = '' or res = '☑'")
                 numList = []
                 while query.next():
                     num = query.value(0)
@@ -684,14 +687,14 @@ class Main():
         log.info("Start")
         Net = self.ConnectionCheck()
         try:
-            log.debug(Net, self.User)
+            log.debug(fr"{Net} {self.User}")
             if db.open():
                 if Net:
                     if self.User:
                         currentIndex = self.ui.start_tab.currentIndex()
                         if currentIndex == 0:
                             self.btnStatus()
-                            self.ui.LogBox.appendPlainText(f"-- Start analysis --")
+                            self.ui.LogBox.appendPlainText(fr"-- Start analysis --")
                             self.AnalyzNum()
                         elif currentIndex == 1:
                             log.debug("message Tab")
@@ -699,7 +702,7 @@ class Main():
                             log.debug(text)
                             if text != '':
                                 self.btnStatus()
-                                self.ui.LogBox.appendPlainText(f"-- Start Send Message --")
+                                self.ui.LogBox.appendPlainText(fr"-- Start Send Message --")
                                 self.sendMsg(text)
                             else:
                                 self.msgError(self.ln["inputxt_err"][self.cln])
@@ -707,7 +710,7 @@ class Main():
                             log.debug('image tab')
                             if self.p != '':
                                 caption = self.ui.caption.toPlainText()
-                                self.ui.LogBox.appendPlainText(f"-- Start Send Image --")
+                                self.ui.LogBox.appendPlainText(fr"-- Start Send Image --")
                                 self.sendImg(path=self.p, caption=caption)
                                 self.btnStatus()
                             else:
@@ -721,12 +724,12 @@ class Main():
                                 try:
                                     if f == 'temporary.data':
                                         continue
-                                    os.remove(f"temp/{f}")
+                                    os.remove(fr"temp/{f}")
                                 except:
                                     try:
-                                        os.rmdir(f"temp/{f}")
+                                        os.rmdir(fr"temp/{f}")
                                     except:
-                                        shutil.rmtree(f"temp/{f}")
+                                        shutil.rmtree(fr"temp/{f}")
                                         continue
                                     continue
                     else:
@@ -744,7 +747,7 @@ class Main():
                 if not os.path.isdir(f'{DeskTop}/{appName}'):
                     os.mkdir(f'{DeskTop}/{appName}')
                 query = QSqlQuery()
-                query.exec_(f"select * from `{TableNow}`")
+                query.exec_(fr"select * from `{TableNow}`")
                 while query.next():
                     number = query.value(0)
                     status = query.value(1)
@@ -762,8 +765,8 @@ class Main():
                         with open(fr"{DeskTop}\{appName}\{FileName}{TableNow}.csv", 'a+', encoding='utf8') as cSv:
                             writer = csv.writer(cSv, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL,
                                                 lineterminator='\n')
-                            writer.writerow([f"{number}"])
-                            # cSv.write(f"{number}\n")
+                            writer.writerow([fr"{number}"])
+                            # cSv.write(fr"{number}\n")
                 self.msgError(errorText=self.ln["export_sucs"][self.cln], icon='Information', colorf="#214917")
         except Exception as e:
             if hasattr(e, 'message'):
@@ -806,13 +809,13 @@ class Main():
             RangeNum = 10
         if firstNumber != '':
             if not len(firstNumber) < 9:
-                path = f"temp\generate-{self.Time()}.csv"
+                path = fr"temp\generate-{self.Time()}.csv"
                 log.debug(firstNumber, path)
                 for i in range(int(RangeNum)):
-                    with open(f"{path}", 'a+') as g:
+                    with open(fr"{path}", 'a+') as g:
                         writer = csv.writer(g, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL,
                                             lineterminator='\n')
-                        writer.writerow([f"{firstNumber}"])
+                        writer.writerow([fr"{firstNumber}"])
                     firstNumber = int(firstNumber) + 1
                     # log.debug(firstNumber)
                 self.generateForm.close()
@@ -867,15 +870,15 @@ class Main():
                 numLine = nums.split('\n')
                 numLine = set(numLine)
                 log.debug(numLine)
-                path = f"temp\manualNumber-{self.Time()}.csv"
+                path = fr"temp\manualNumber-{self.Time()}.csv"
                 for num in numLine:
                     if num == '':
                         continue
                     num = int(num)
-                    with open(f"{path}", 'a+') as g:
+                    with open(fr"{path}", 'a+') as g:
                         writer = csv.writer(g, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL,
                                             lineterminator='\n')
-                        writer.writerow([f"{num}"])
+                        writer.writerow([fr"{num}"])
                 self.formQImport1.close()
                 self.ListLoader(path)
                 self.msgError(errorText=self.ln["load_sucs"][self.cln], icon='Information', colorf="#214917")
@@ -961,7 +964,7 @@ class Main():
                 e.response.status_code), exc_info=True)
             return False
         except requests.ConnectionError:
-            log.debug("No internet connection available." , exc_info=True)
+            log.debug("No internet connection available.", exc_info=True)
             return False
 
 
