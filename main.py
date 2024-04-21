@@ -16,24 +16,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox,
 from wasender import Ui_MainWindow
 import icons_rc
 from browserCtrl import Web
-import logging
-import logging.config
-from logging.handlers import SocketHandler
-import pythonjsonlogger.jsonlogger
 from src import dpi
-from src import logcolor
-
-# config
-if not os.path.exists(fr'.\src\logs'):
-    os.mkdir(fr'.\src\logs')
-logging.config.fileConfig(fr"src\logging.ini", disable_existing_loggers=True)
-log = logging.getLogger(__name__)
-try:
-    socket_handler = SocketHandler("127.0.0.1", 19996)
-except:
-    pass
-log.addHandler(socket_handler)
-# config ends
+from appLog import log
 
 
 class Main():
@@ -559,10 +543,11 @@ class Main():
                     numList.append(num)
                 self.AnalyzThread = Web(counter_start=0, step='A', numList=numList, Remember=self.RememberLogin)
                 self.AnalyzThread.start()
+                log.debug("send start command for browser")
                 self.AnalyzThread.lcdNumber_reviewed.connect(self.lcdNumber_reviewed)
                 self.AnalyzThread.lcdNumber_wa.connect(self.lcdNumber_wa)
                 self.AnalyzThread.lcdNumber_nwa.connect(self.lcdNumber_nwa)
-                self.AnalyzThread.Log.connect(self.programLog)
+                self.AnalyzThread.LogBox.connect(self.programLog)
                 self.AnalyzThread.wa.connect(self.waINS)
                 self.AnalyzThread.nwa.connect(self.nwaINS)
                 self.AnalyzThread.EndWork.connect(self.EndWork)
@@ -600,7 +585,7 @@ class Main():
                 self.MsgThread.lcdNumber_reviewed.connect(self.lcdNumber_reviewed)
                 self.MsgThread.lcdNumber_wa.connect(self.lcdNumber_wa)
                 self.MsgThread.lcdNumber_nwa.connect(self.lcdNumber_nwa)
-                self.MsgThread.Log.connect(self.programLog)
+                self.MsgThread.LogBox.connect(self.programLog)
                 self.MsgThread.wa.connect(self.waINS)
                 self.MsgThread.nwa.connect(self.nwaINS)
                 self.MsgThread.EndWork.connect(self.EndWork)
@@ -638,7 +623,7 @@ class Main():
                 self.ImgThread.lcdNumber_reviewed.connect(self.lcdNumber_reviewed)
                 self.ImgThread.lcdNumber_wa.connect(self.lcdNumber_wa)
                 self.ImgThread.lcdNumber_nwa.connect(self.lcdNumber_nwa)
-                self.ImgThread.Log.connect(self.programLog)
+                self.ImgThread.LogBox.connect(self.programLog)
                 self.ImgThread.wa.connect(self.waINS)
                 self.ImgThread.nwa.connect(self.nwaINS)
                 self.ImgThread.EndWork.connect(self.EndWork)
@@ -685,7 +670,8 @@ class Main():
         self.RememberLogin = True
 
         log.info("Start")
-        Net = self.ConnectionCheck()
+        # Net = self.ConnectionCheck()
+        Net = True
         try:
             log.debug(fr"{Net} {self.User}")
             if db.open():
@@ -954,7 +940,7 @@ class Main():
         except:
             pass
 
-    def ConnectionCheck(self, url='https://py.pord.ir/ip/', timeout=5):
+    def ConnectionCheck(self, url='https://www.whatsapp.com/', timeout=5):
         try:
             req = requests.get(url, timeout=timeout)
             req.raise_for_status()

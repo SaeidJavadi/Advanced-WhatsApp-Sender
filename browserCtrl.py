@@ -1,6 +1,5 @@
 from PyQt5.QtCore import pyqtSignal, QThread
 from selenium import webdriver
-from selenium.webdriver.common.selenium_manager import SeleniumManager
 import json
 import os
 import platform
@@ -14,30 +13,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import logging
-import logging.config
-from logging.handlers import SocketHandler
 from selenium.webdriver.chrome.service import Service
 from subprocess import CREATE_NO_WINDOW
 import chromedriver_autoinstaller
+from appLog import log
 
-
-# config
-if not os.path.exists(fr'.\src\logs'):
-    os.mkdir(fr'.\src\logs')
-logging.config.fileConfig(fr"src\logging.ini", disable_existing_loggers=True)
-logr = logging.getLogger(__name__)
-try:
-    socket_handler = SocketHandler("127.0.0.1", 19996)
-except:
-    pass
-logr.addHandler(socket_handler)
-# config ends
 
 try:
+    log.info("browserCTRL start to dl")
     chromedriver_autoinstaller.install()
 except:
-    logr.exception("")
+    log.exception("")
 CHROME = 1
 FIREFOX = 2
 
@@ -48,7 +34,7 @@ class Web(QThread):
     lcdNumber_reviewed = pyqtSignal(int)
     lcdNumber_nwa = pyqtSignal(int)
     lcdNumber_wa = pyqtSignal(int)
-    Log = pyqtSignal(str)
+    LogBox = pyqtSignal(str)
     wa = pyqtSignal(str)
     nwa = pyqtSignal(str)
     EndWork = pyqtSignal(str)
@@ -80,7 +66,7 @@ class Web(QThread):
         self.__browser_user_dir = None
         self.__driver = None
         self.service = Service()
-        self.service.creationflags = CREATE_NO_WINDOW
+        self.service.creation_flags = CREATE_NO_WINDOW
         if browser == 1:
             self.set_browser(CHROME)
         elif browser == 2:
@@ -89,20 +75,18 @@ class Web(QThread):
         self.__init_browser()
 
     def driverBk(self):
-        options = webdriver.ChromeOptions()
-        options.add_argument("--disable-notifications")
-        # options.add_argument(fr"--user-data-dir={userDataPath}")
+        option = webdriver.ChromeOptions()
+        option.add_argument("--disable-notifications")
+        # option.add_argument(fr"--user-data-dir={userDataPath}")
         try:
             try:
-                self.__driver = webdriver.Chrome(
-                    chrome_options=options, service_args=["hide_console",], service=self.service)
-                logr.debug("webDriver")
+                self.__driver = webdriver.Chrome(options=option, service=self.service)
+                log.debug("webDriver")
             except:
-                logr.exception("error remeber")
-                self.__driver = webdriver.Chrome(
-                    service_args=["hide_console", ], service=self.service)
+                log.exception("error remeber")
+                self.__driver = webdriver.Chrome(service=self.service)
         except:
-            logr.exception("Chrome ->:")
+            log.exception("Chrome ->:")
             # if not os.path.exists('temp/F.Options'):
             #     os.mkdir('temp/F.Options')
             # optionsF = webdriver.FirefoxOptions()
@@ -119,7 +103,7 @@ class Web(QThread):
 
     def is_logged_in(self):
         status = self.__driver.execute_script(
-            "if (document.querySelector('*[data-icon=chat]') !== null) { return true } else { return false }"
+            "if (document.querySelector('*[data-icon=new-chat-outline]') !== null) { return true } else { return false }"
         )
         return status
 
@@ -136,46 +120,49 @@ class Web(QThread):
 
     def ANALYZ(self):
         try:
-            logr.debug("analyz")
+            log.debug("analyz")
             if self.remember:
+                log.debug("remember")
                 cacheList = os.listdir('temp/cache/')
                 if len(cacheList) != 0:
                     self.access_by_file(f"./temp/cache/{cacheList[0]}")
-                    logr.debug('recover')
+                    log.debug('recover')
                 else:
                     self.driverBk()
                     self.__driver.get(self.__URL)
             else:
+                log.debug("! remember !")
                 self.driverBk()
                 self.__driver.get(self.__URL)
 
             while True:
+                log.debug("Login Check")
                 time.sleep(1)
                 if self.is_logged_in():
-                    logr.debug("login")
-                    log = "Login Success"
-                    self.Log.emit(log)
+                    log.debug("login")
+                    logtxt = "Login Success"
+                    self.LogBox.emit(logtxt)
                     break
-            logr.debug("thread:", self.counter_start)
+            log.debug("thread:", self.counter_start)
             i = 0
             f = 0
             nf = 0
             for num in self.Numbers:
-                log = ""
+                logtxt = ""
                 try:
                     time.sleep(3)
                     if i == 0:
                         execu = f"""
                                 var a = document.createElement('a');
                                 var link = document.createTextNode("hiding");
-                                a.appendChild(link); 
-                                a.href = "https://wa.me/{num}"; 
+                                a.appendChild(link);
+                                a.href = "https://wa.me/{num}";
                                 document.head.appendChild(a);
                                 """
                         try:
                             self.__driver.execute_script(execu)
                         except:
-                            logr.exception("error")
+                            log.exception("error")
                     else:
                         element = self.__driver.find_element(By.XPATH, '/html/head/a')
                         self.__driver.execute_script(f"arguments[0].setAttribute('href','https://wa.me/{num}');",
@@ -185,40 +172,40 @@ class Web(QThread):
                     time.sleep(2)
                     sourceWeb = self.__driver.page_source
                     if "Phone number shared via url is invalid" in sourceWeb:
-                        logr.debug(f"Not Found {num}")
+                        log.debug(f"Not Found {num}")
                         nf += 1
                         self.lcdNumber_nwa.emit(nf)
-                        log = f"Number::{num} => Not Find!"
+                        logtxt = f"Number::{num} => Not Find!"
                         self.nwa.emit(f"{num}")
                     else:
-                        logr.debug("find", num)
+                        log.debug("find", num)
                         f += 1
                         self.lcdNumber_wa.emit(f)
-                        log = f"Number::{num} => Find."
+                        logtxt = f"Number::{num} => Find."
                         self.wa.emit(f"{num}")
                 except:
-                    log = f"Number::{num} Error !"
+                    logtxt = f"Number::{num} Error !"
                     continue
                 finally:
                     i += 1
-                    logr.debug(i)
+                    log.debug(i)
                     self.lcdNumber_reviewed.emit(i)
-                    self.Log.emit(log)
+                    self.LogBox.emit(logtxt)
             time.sleep(2)
-            logr.debug("end")
+            log.debug("end")
             self.EndWork.emit("-- analysis completed --")
             self.isRunning = False
             self.__driver.quit()
         except:
-            logr.exception("Analyz ->:")
+            log.exception("Analyz ->:")
 
     def SendTEXT(self):
-        logr.debug("sent text")
+        log.debug("sent text")
         if self.remember:
             cacheList = os.listdir('temp/cache/')
             if len(cacheList) != 0:
                 self.access_by_file(f"./temp/cache/{cacheList[0]}")
-                logr.debug('recover')
+                log.debug('recover')
             else:
                 self.driverBk()
                 self.__driver.get(self.__URL)
@@ -229,32 +216,32 @@ class Web(QThread):
         while True:
             time.sleep(1)
             if self.is_logged_in():
-                logr.debug("login")
-                log = "Login Success"
-                self.Log.emit(log)
+                log.debug("login")
+                logtxt = "Login Success"
+                self.LogBox.emit(logtxt)
                 break
         i = 0
         f = 0
         nf = 0
         from random import randint
-        logr.debug(self.Numbers)
+        log.debug(self.Numbers)
         for num in self.Numbers:
-            log = ""
+            logtxt = ""
             try:
                 time.sleep(3)
                 if i == 0:
                     execu = f"""
                             var a = document.createElement('a');
                             var link = document.createTextNode("hiding");
-                            a.appendChild(link); 
-                            a.href = "https://wa.me/{num}"; 
+                            a.appendChild(link);
+                            a.href = "https://wa.me/{num}";
                             document.head.appendChild(a);
                             """
                     try:
                         self.__driver.execute_script(execu)
                     except:
-                        logr.exception("error")
-                        log = "ERROR !"
+                        log.exception("error")
+                        logtxt = "ERROR !"
                         break
                 else:
                     element = self.__driver.find_element(By.XPATH, '/html/head/a')
@@ -265,13 +252,13 @@ class Web(QThread):
                 time.sleep(2)
                 sourceWeb = self.__driver.page_source
                 if "Phone number shared via url is invalid" in sourceWeb:
-                    logr.debug(f"Not Found {num}")
+                    log.debug(f"Not Found {num}")
                     nf += 1
                     self.lcdNumber_nwa.emit(nf)
-                    log = f"Number::{num} => No Send!"
+                    logtxt = f"Number::{num} => No Send!"
                     self.nwa.emit(f"{num}")
                 else:
-                    logr.debug("find", num)
+                    log.debug("find", num)
                     time.sleep(2)
                     textBox = self.__driver.find_element(By.XPATH, '//div[@title="Type a message"]')
                     time.sleep(1)
@@ -285,28 +272,28 @@ class Web(QThread):
                     time.sleep(1)
                     f += 1
                     self.lcdNumber_wa.emit(f)
-                    log = f"Number::{num} => Sent."
+                    logtxt = f"Number::{num} => Sent."
                     self.wa.emit(f"{num}")
                 time.sleep(randint(self.sleepMin, self.sleepMax))
             except:
-                log = f"Error To Number = {num} "
+                logtxt = f"Error To Number = {num} "
                 continue
             finally:
                 i += 1
                 self.lcdNumber_reviewed.emit(i)
-                self.Log.emit(log)
-        logr.debug("end msg")
+                self.LogBox.emit(logtxt)
+        log.debug("end msg")
         self.EndWork.emit("-- Send Message completed --")
         self.stop()
         self.isRunning = False
 
     def SendIMG(self):
-        logr.debug("sent text")
+        log.debug("sent img")
         if self.remember:
             cacheList = os.listdir('temp/cache/')
             if len(cacheList) != 0:
                 self.access_by_file(f"./temp/cache/{cacheList[0]}")
-                logr.debug('recover')
+                log.debug('recover')
             else:
                 self.driverBk()
                 self.__driver.get(self.__URL)
@@ -317,32 +304,32 @@ class Web(QThread):
         while True:
             time.sleep(1)
             if self.is_logged_in():
-                logr.debug("login")
-                log = "Login Success"
-                self.Log.emit(log)
+                log.debug("login")
+                logtxt = "Login Success"
+                self.LogBox.emit(logtxt)
                 break
         i = 0
         f = 0
         nf = 0
         from random import randint
-        logr.debug(self.Numbers)
+        log.debug(self.Numbers)
         for num in self.Numbers:
-            log = ""
+            logtxt = ""
             try:
                 time.sleep(3)
                 if i == 0:
                     execu = f"""
                             var a = document.createElement('a');
                             var link = document.createTextNode("hiding");
-                            a.appendChild(link); 
-                            a.href = "https://wa.me/{num}"; 
+                            a.appendChild(link);
+                            a.href = "https://wa.me/{num}";
                             document.head.appendChild(a);
                             """
                     try:
                         self.__driver.execute_script(execu)
                     except:
-                        logr.exception("error img")
-                        log = "ERROR !"
+                        log.exception("error img")
+                        logtxt = "ERROR !"
                         break
                 else:
                     element = self.__driver.find_element(By.XPATH, '/html/head/a')
@@ -352,22 +339,22 @@ class Web(QThread):
                 time.sleep(2)
                 sourceWeb = self.__driver.page_source
                 if "Phone number shared via url is invalid" in sourceWeb:
-                    logr.debug(f"Not Found {num}")
+                    log.debug(f"Not Found {num}")
                     nf += 1
                     self.lcdNumber_nwa.emit(nf)
-                    log = f"Number::{num} => No Send"
+                    logtxt = f"Number::{num} => No Send"
                     self.nwa.emit(f"{num}")
                 else:
-                    logr.debug("find", num)
+                    log.debug("find", num)
                     time.sleep(2)
-                    self.__driver.find_element(By.XPATH, '//span[@data-icon="clip"]').click()
+                    self.__driver.find_element(By.XPATH, '//span[@data-icon="attach-menu-plus"]').click()
                     time.sleep(2)
                     attch = self.__driver.find_element(By.XPATH,
                                                        '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
                     attch.send_keys(self.path)
                     time.sleep(2)
                     caption = self.__driver.find_element(
-                        By.XPATH, '//div[@data-testid="media-caption-input-container"]')
+                        By.XPATH, '//div[@role="textbox"]')
                     if self.text != '' or self.text != ' ':
                         self.copyToClipboard(self.text)
                         caption.send_keys(Keys.CONTROL, 'v')
@@ -378,35 +365,36 @@ class Web(QThread):
                         caption.send_keys(Keys.ENTER)
                     f += 1
                     self.lcdNumber_wa.emit(f)
-                    log = f"Number::{num} => Sent"
+                    logtxt = f"Number::{num} => Sent"
                     self.wa.emit(f"{num}")
                 time.sleep(randint(self.sleepMin, self.sleepMax))
             except:
-                log = f"Error To Number = {num} "
+                logtxt = f"Error To Number = {num} "
+                log.exception("Error sendIMG")
                 continue
             finally:
                 i += 1
                 self.lcdNumber_reviewed.emit(i)
-                self.Log.emit(log)
+                self.LogBox.emit(logtxt)
         self.EndWork.emit("-- Send Image completed --")
         self.stop()
         self.isRunning = False
 
     def addAcc(self):
         try:
-            logr.debug("Add Account")
+            log.debug("Add Account")
             if self.remember:
                 if self.path == '':
                     cacheName = str(random.randint(1, 9999999))
                     self.path = cacheName
                 self.save_profile(self.get_active_session(),
                                   f"./temp/cache/{self.path}")
-                logr.debug('File saved.')
-            logr.debug("thread:", self.counter_start)
+                log.debug('File saved.')
+            log.debug("thread:", self.counter_start)
             self.EndWork.emit("-- Add Account completed --")
             self.isRunning = False
         except:
-            logr.exception("Add Account ->:")
+            log.exception("Add Account ->:")
 
     def run(self):
         while self.isRunning == True:
@@ -421,7 +409,7 @@ class Web(QThread):
 
     def stop(self):
         self.isRunning = False
-        logr.debug('stopping thread...')
+        log.debug('stopping thread...')
         try:
             self.__driver.quit()
         except:
@@ -520,7 +508,7 @@ class Web(QThread):
     def __start_session(self, options, profile_name=None, wait_for_login=True):
         if profile_name is None:
             if self.__browser_choice == CHROME:
-                self.__driver = webdriver.Chrome(options=options, service_args=["hide_console", ],service=self.service)
+                self.__driver = webdriver.Chrome(options=options, service_args=["hide_console", ], service=self.service)
                 self.__driver.set_window_position(0, 0)
                 self.__driver.set_window_size(670, 800)
             elif self.__browser_choice == FIREFOX:
@@ -541,7 +529,7 @@ class Web(QThread):
             if self.__browser_choice == CHROME:
                 options.add_argument(
                     'user-data-dir=%s' % os.path.join(self.__browser_user_dir, profile_name))
-                self.__driver = webdriver.Chrome(options=options, service_args=["hide_console", ],service=self.service)
+                self.__driver = webdriver.Chrome(options=options, service_args=["hide_console", ], service=self.service)
             elif self.__browser_choice == FIREFOX:
                 fire_profile = webdriver.FirefoxProfile(
                     os.path.join(self.__browser_user_dir, profile_name))
