@@ -1,12 +1,11 @@
 ### Advanced WhatsApp Sender And Analyzer
-
 - Analyzer: Find phone numbers that have WhatsApp account
 - Sender of text message and image message
 
 You can use this program to automatically send a text message or image to a list of Phone numbers
 
-[![Watch the video](https://img.youtube.com/vi/vcJBbGqtvM8/0.jpg)](https://www.youtube.com/watch?v=vcJBbGqtvM8)
-- [Click the image above to watch the tutorial on YouTube!](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Watch the video](https://github.com/user-attachments/assets/e6ddb267-c599-41ad-9761-ed4267b1cad9)](https://www.youtube.com/watch?v=vcJBbGqtvM8)
+- [Click the image above to watch the tutorial on YouTube!](https://www.youtube.com/watch?v=vcJBbGqtvM8)
 
 # Program features include:
 - Reload Phone numbers via Excel files
