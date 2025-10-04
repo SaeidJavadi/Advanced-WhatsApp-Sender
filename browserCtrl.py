@@ -118,6 +118,68 @@ class Web(QThread):
         finally:
             pyperclip.copy(text)
 
+    def find_message_input(self):
+        """
+        Improved method for finding message input field in WhatsApp
+        Uses multiple different selectors for better reliability
+        """
+        selectors = [
+            # Main method - aria-placeholder
+            '//div[@aria-placeholder="Type a message"]',
+            '//div[@aria-placeholder="پیام تایپ کنید"]',  # Persian
+            '//div[@aria-placeholder="Escribir un mensaje"]',  # Spanish
+            '//div[@aria-placeholder="Tapez un message"]',  # French
+
+            # Alternative methods
+            '//div[@contenteditable="true"][@data-tab="10"]',
+            '//div[@contenteditable="true"][@role="textbox"]',
+            '//div[@contenteditable="true"][contains(@class, "selectable-text")]',
+
+            # More general methods
+            '//div[@contenteditable="true"][@data-tab]',
+            '//div[@contenteditable="true"][@aria-label]',
+
+            # Older WhatsApp methods
+            '//div[@contenteditable="true"][@spellcheck="true"]',
+            '//div[@contenteditable="true"][@autocomplete="off"]',
+        ]
+
+        for selector in selectors:
+            try:
+                # Wait for element to load
+                element = WebDriverWait(self.__driver, 3).until(
+                    EC.presence_of_element_located((By.XPATH, selector))
+                )
+                if element and element.is_displayed():
+                    log.debug(f"Input field found with selector: {selector}")
+                    return element
+            except:
+                continue
+
+        # If none worked, last attempt with JavaScript
+        try:
+            element = self.__driver.execute_script("""
+                // Search in all contenteditable divs
+                var elements = document.querySelectorAll('div[contenteditable="true"]');
+                for (var i = 0; i < elements.length; i++) {
+                    var el = elements[i];
+                    if (el.getAttribute('data-tab') === '10' || 
+                        el.getAttribute('aria-placeholder') && 
+                        el.getAttribute('aria-placeholder').toLowerCase().includes('message')) {
+                        return el;
+                    }
+                }
+                return null;
+            """)
+            if element:
+                log.debug("Input field found with JavaScript")
+                return element
+        except:
+            pass
+
+        # If none worked, raise error
+        raise Exception("Could not find message input field")
+
     def ANALYZ(self):
         try:
             log.debug("analyz")
@@ -258,9 +320,10 @@ class Web(QThread):
                     logtxt = f"Number::{num} => No Send!"
                     self.nwa.emit(f"{num}")
                 else:
-                    log.debug("find", num)
+                    log.debug(f"find {num}")
                     time.sleep(2)
-                    textBox = self.__driver.find_element(By.XPATH, '//div[@title="Type a message"]')
+
+                    textBox = self.find_message_input()
                     time.sleep(1)
                     self.copyToClipboard(self.text)
                     textBox.send_keys(Keys.CONTROL, 'v')
@@ -349,8 +412,8 @@ class Web(QThread):
                     time.sleep(2)
                     self.__driver.find_element(By.XPATH, '//span[@data-icon="attach-menu-plus"]').click()
                     time.sleep(2)
-                    attch = self.__driver.find_element(By.XPATH,
-                                                       '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
+                    attch = self.__driver.find_element(
+                        By.XPATH, '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
                     attch.send_keys(self.path)
                     time.sleep(2)
                     caption = self.__driver.find_element(
