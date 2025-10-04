@@ -410,7 +410,7 @@ class Web(QThread):
                 else:
                     log.debug("find", num)
                     time.sleep(2)
-                    self.__driver.find_element(By.XPATH, '//span[@data-icon="attach-menu-plus"]').click()
+                    self.__driver.find_element(By.XPATH, '//span[@data-icon="plus-rounded"]').click()
                     time.sleep(2)
                     attch = self.__driver.find_element(
                         By.XPATH, '//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
